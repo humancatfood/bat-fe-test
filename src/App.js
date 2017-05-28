@@ -1,7 +1,6 @@
 /* Feel free to edit */
 import React, { Component } from 'react';
 import Layout from './Layout';
-import css from './App.css';
 
 
 
