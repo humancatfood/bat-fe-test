@@ -2,16 +2,18 @@
 import React from 'react';
 
 import Header from './components/Header';
+import BookingsTable from './components/BookingsTable';
 
 
 
 export default function Layout() {
   return (
     <div className="bui-app">
-      <Header/>
+      <Header />
+      <BookingsTable />
       <div className="bui-app-header">
         {/*TODO include, or replace heading with, logo */}
-        <h1 className="bui-app-intro">Table Reservations</h1>
+
       </div>
     </div>
   );
