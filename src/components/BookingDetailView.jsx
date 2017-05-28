@@ -1,19 +1,21 @@
 import React from 'react';
 
-import bookingsByDay from '../../bookings.json';
 
 
+export default ({ booking, onClose }) => {
 
-export default () => {
-
-  const bookings = bookingsByDay[0].bookings;
-  const id = Math.floor(Math.random() * bookings.length);
-  const booking = bookings[id];
-  const seated = booking.cancelled ? 'cancelled' : booking.seated ? 'yes' : 'no';
+  const seated = booking.cancelled ?
+    'cancelled' :
+    booking.seated ?
+      'yes' :
+      'no';
 
   return (
     <section className="bookings-detail-view">
-      <h2 className="bui-app-intro">Booking update:</h2>
+      <h2 className="bui-app-intro">
+        Booking update:
+        <button onClick={ () => onClose() } style={{float: 'right'}}>X</button>
+      </h2>
 
       <form>
         <fieldset>

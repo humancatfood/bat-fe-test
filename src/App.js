@@ -1,6 +1,11 @@
 /* Feel free to edit */
 import React, { Component } from 'react';
-import Layout from './Layout';
+
+import { getBookings } from './data/bookings-service';
+
+import Header from './components/Header';
+import BookingsTable from './components/BookingsTable';
+import BookingDetailView from './components/BookingDetailView';
 
 
 
@@ -11,9 +16,47 @@ import Layout from './Layout';
 // You can ignore this warning. For details, see:
 // https://github.com/reactjs/react-router/issues/2182
 export default class App extends Component {
-  render() {
+
+  constructor (...args)
+  {
+    super(...args);
+    this.state = {
+      bookings: {}
+    };
+  }
+
+  componentWillMount ()
+  {
+    getBookings()
+      .then(bookings => this.setState({ bookings }));
+  }
+
+  render ()
+  {
+    const { bookings: {bookings, date}, selected } = this.state;
+
     return (
-      <Layout />
+      <div className="bui-app">
+        <Header />
+        <main>
+          {
+            bookings &&
+              <BookingsTable date={ date } bookings={ bookings } onSelect={ booking => this._selectBooking(booking)}/>
+          }
+          {
+            selected &&
+              <BookingDetailView booking={ selected } onClose={ () => this._selectBooking(null) } />
+          }
+        </main>
+      </div>
     );
   }
+
+  _selectBooking (booking)
+  {
+    this.setState({
+      selected: booking
+    });
+  }
+
 }
