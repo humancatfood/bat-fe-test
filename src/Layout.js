@@ -11,12 +11,10 @@ export default function Layout() {
   return (
     <div className="bui-app">
       <Header />
-      <BookingsTable />
-      <BookingDetailView />
-      <div className="bui-app-header">
-        {/*TODO include, or replace heading with, logo */}
-
-      </div>
+      <main>
+        <BookingsTable />
+        <BookingDetailView />
+      </main>
     </div>
   );
 }
