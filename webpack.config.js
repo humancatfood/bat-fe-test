@@ -30,6 +30,11 @@ module.exports = {
 
   devtool: 'inline-source-map',
 
+  resolve: {
+    extensions: ['.js', '.jsx'],
+    modules: ['src', 'node_modules']
+  },
+
   module: {
     rules: [
       {
