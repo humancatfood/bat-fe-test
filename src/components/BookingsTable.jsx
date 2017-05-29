@@ -1,8 +1,9 @@
 import React from 'react';
+import classnames from 'classnames';
 
 
 
-export default ({ date, bookings, onSelect }) => (
+export default ({ date, bookings, onSelect, selectedBooking }) => (
   <section>
     <h2 className="bui-app-intro">Bookings for { date }:</h2>
     <table className="bookings-table">
@@ -18,7 +19,10 @@ export default ({ date, bookings, onSelect }) => (
         {
           bookings.map(booking => (
             <tr key={ booking.id }
-                className={ booking.cancelled ? 'cancelled' : '' }
+                className={ classnames({
+                  cancelled: booking.cancelled,
+                  selected: selectedBooking && booking.id === selectedBooking.id
+                }) }
                 onClick={ () => onSelect(booking) }>
               <td>{ `${ booking.title } ${ booking.firstName } ${ booking.lastName }` }</td>
               <td>{ booking.time }</td>

@@ -41,11 +41,11 @@ export default class App extends Component {
         <main>
           {
             bookings &&
-              <BookingsTable date={ date } bookings={ bookings } onSelect={ booking => this._selectBooking(booking)}/>
+              <BookingsTable date={ date } bookings={ bookings } selectedBooking={ selected } onSelect={ booking => this._selectBooking(booking)}/>
           }
           {
             selected &&
-              <BookingDetailView booking={ selected } onClose={ () => this._selectBooking(null) } />
+              <BookingDetailView selectedBooking={ selected } onClose={ () => this._selectBooking(null) } />
           }
         </main>
       </div>

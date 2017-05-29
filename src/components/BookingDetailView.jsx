@@ -2,11 +2,11 @@ import React from 'react';
 
 
 
-export default ({ booking, onClose }) => {
+export default ({ selectedBooking, onClose }) => {
 
-  const seated = booking.cancelled ?
+  const seated = selectedBooking.cancelled ?
     'cancelled' :
-    booking.seated ?
+    selectedBooking.seated ?
       'yes' :
       'no';
 
@@ -20,15 +20,15 @@ export default ({ booking, onClose }) => {
       <form>
         <fieldset>
           <legend>Name</legend>
-          <input type="text" name="name" value={ `${ booking.title } ${ booking.firstName } ${ booking.lastName }` }/>
+          <input type="text" name="name" value={ `${ selectedBooking.title } ${ selectedBooking.firstName } ${ selectedBooking.lastName }` }/>
         </fieldset>
         <fieldset>
           <legend>Time</legend>
-          <input type="time" name="time" value={ booking.time } />
+          <input type="time" name="time" value={ selectedBooking.time } />
         </fieldset>
         <fieldset>
           <legend>Covers</legend>
-          <input type="number" name="covers" value={ booking.partySize } />
+          <input type="number" name="covers" value={ selectedBooking.partySize } />
         </fieldset>
         <fieldset>
           <legend>Seated</legend>
@@ -38,7 +38,7 @@ export default ({ booking, onClose }) => {
         </fieldset>
         <fieldset>
           <legend>Notes</legend>
-          <textarea name="notes" rows="4" value={ booking.notes }></textarea>
+          <textarea name="notes" rows="4" value={ selectedBooking.notes }></textarea>
         </fieldset>
       </form>
     </section>

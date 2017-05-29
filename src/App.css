@@ -57,6 +57,11 @@ header img {
     text-decoration: line-through;
 }
 
+.bookings-table .selected {
+    background-color: #666;
+    color: white;
+}
+
 main
 {
     display: table;
