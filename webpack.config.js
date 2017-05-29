@@ -65,6 +65,12 @@ module.exports = {
 
     new webpack.NoEmitOnErrorsPlugin(),
     // do not emit compiled assets that include errors
+
+    new webpack.DefinePlugin({
+      ENV: {
+        DEBUG: true
+      }
+    })
   ],
 
   devServer: {

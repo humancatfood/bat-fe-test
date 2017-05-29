@@ -42,6 +42,12 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       comments: false
+    }),
+
+    new webpack.DefinePlugin({
+      ENV: {
+        DEBUG: false
+      }
     })
   ]
 };
