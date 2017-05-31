@@ -1,7 +1,9 @@
 /* Feel free to edit */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import { getLatestBookings } from './data/bookings-service';
+import { loadLatestBookings } from './data/actions';
 
 import Header from './components/Header';
 import BookingsTable from './components/BookingsTable';
@@ -9,6 +11,9 @@ import BookingDetailView from './components/BookingDetailView';
 
 
 
+@connect(() => {}, {
+  loadLatestBookings
+})
 // If you use React Router, make this component
 // render <Router> with your routes. Currently,
 // only synchronous routes are hot reloaded, and
@@ -27,6 +32,7 @@ export default class App extends Component {
 
   componentWillMount ()
   {
+    this.props.loadLatestBookings();
     getLatestBookings()
       .then(bookings => this.setState({ bookings }));
   }
