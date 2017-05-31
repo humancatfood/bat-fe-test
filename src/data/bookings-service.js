@@ -6,20 +6,22 @@ import bookingsByDay from './bookings.json';
 
 
 
-const data = bookingsByDay.map(day => ({
-  ...day,
-  bookings: day.bookings.map(booking => ({
-    ...booking,
-    id: v4()
+
+const data = bookingsByDay
+  .map(day => ({
+    ...day,
+    bookings: day.bookings.map(booking => ({
+      ...booking,
+      id: v4()
+    }))
   }))
-}));
+  .sort((a, b) => new Date(a.date) - new Date(b.date));
 
 
-export const getBookings = async (date=null) => (
-  date ?
-    data.find(bookings => date === bookings.date) :
-    data[data.length-1]
-);
+export const getLatestBookings = async () => data[data.length-1];
+
+
+export const getBookingsForDate = async (date=null) => data.find(bookings => date === bookings.date);
 
 
 export const saveBookings = async () => data;

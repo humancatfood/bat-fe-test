@@ -1,7 +1,7 @@
 /* Feel free to edit */
 import React, { Component } from 'react';
 
-import { getBookings } from './data/bookings-service';
+import { getLatestBookings } from './data/bookings-service';
 
 import Header from './components/Header';
 import BookingsTable from './components/BookingsTable';
@@ -27,7 +27,7 @@ export default class App extends Component {
 
   componentWillMount ()
   {
-    getBookings()
+    getLatestBookings()
       .then(bookings => this.setState({ bookings }));
   }
 
