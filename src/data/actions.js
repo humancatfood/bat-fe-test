@@ -65,17 +65,17 @@ export const loadLatestBookings = () => async dispatch => {
 };
 
 
-export const updateBooking = booking => async dispatch => {
+export const updateBooking = newBooking => async dispatch => {
 
   dispatch(setBusy(true));
 
   try
   {
-    const newBooking = await saveBooking(booking);
+    const booking = await saveBooking(newBooking);
     dispatch({
       type: ACTIONS.UPDATE_BOOKING,
       payload: {
-        newBooking
+        booking
       }
     });
   }

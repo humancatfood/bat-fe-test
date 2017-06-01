@@ -27,6 +27,18 @@ export default (state=bookingsDefaultState, action) => {
           }, {})
         }
       };
+    }
+
+    case ACTIONS.UPDATE_BOOKING: {
+      const { booking } = action.payload;
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [booking.id]: booking
+        }
+      };
+    }
 
     default:
       return state;
