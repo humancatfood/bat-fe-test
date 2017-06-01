@@ -6,6 +6,7 @@ export const ACTIONS = {
   SELECT_BOOKING: 'SELECT_BOOKING',
 
   SET_BUSY: 'SET_BUSY',
+  SORT_BY: 'SORT_BY',
 
   LOAD_BOOKINGS: 'LOAD_BOOKINGS',
   RECEIVE_BOOKINGS: 'RECEIVE_BOOKINGS',
@@ -43,6 +44,14 @@ export const receiveBookings = (date, bookings) => ({
   payload: {
     date,
     bookings
+  }
+});
+
+
+export const sortBy = sortProp => ({
+  type: ACTIONS.SORT_BY,
+  payload: {
+    sortProp
   }
 });
 

@@ -2,39 +2,43 @@ import React from 'react';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 
-import { selectBooking } from './../data/actions';
+import { selectBooking, sortBy } from './../data/actions';
 
+import TableHeader from './BookingsTableHeader';
 
 
 @connect(store => {
-  const { bookings: {byId={}, byDate={}}, ui: {selectedDate=null}} = store;
+  const { bookings: {byId={}, byDate={}}, ui: {selectedDate=null, sortProp, sortOrder}} = store;
   const ids = byDate[selectedDate];
   return {
     bookings: ids && ids.map(id => byId[id]),
-    selectedBooking: store.ui.selectedBooking
+    selectedBooking: store.ui.selectedBooking,
+    sortProp,
+    sortOrder
   };
 }, {
-  selectBooking
+  selectBooking,
+  sortBy
 })
 export default class BookingsTable extends React.Component
 {
   render()
   {
-    const { bookings, selectedBooking, selectBooking } = this.props;
+    const { bookings, selectedBooking, selectBooking, sortProp, sortOrder } = this.props;
 
     return (
       <table className="bookings-table">
         <thead>
         <tr>
-          <th>Name</th>
-          <th>Time</th>
-          <th>Covers</th>
-          <th>Seated</th>
+          <TableHeader value="lastName" label="Name" />
+          <TableHeader value="time" label="Time" />
+          <TableHeader value="partySize" label="Covers" />
+          <TableHeader value="seated" label="Seated" />
         </tr>
         </thead>
         <tbody>
         {
-          bookings && bookings.map(booking => (
+          this._sortBookings(bookings, sortProp, sortOrder).map(booking => (
             <tr key={ booking.id }
                 className={ classnames({
                   cancelled: booking.cancelled,
@@ -51,6 +55,11 @@ export default class BookingsTable extends React.Component
         </tbody>
       </table>
     );
+  }
+
+  _sortBookings (bookings, sortProp, sortOrder)
+  {
+    return bookings.sort((a, b) => (a[sortProp] > b[sortProp] && 1 || -1)  * sortOrder);
   }
 
 }
