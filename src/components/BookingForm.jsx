@@ -50,9 +50,11 @@ export default class BookingForm extends React.Component
 
   _onReset ()
   {
-    this.setState({
-      dirty: false,
-      ...this._propsToState(this.props)
+    setTimeout(() => {
+      this.setState({
+        dirty: false,
+        ...this._propsToState(this.props)
+      });
     });
   }
 
