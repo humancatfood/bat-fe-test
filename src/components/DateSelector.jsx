@@ -5,19 +5,12 @@ import { selectDate } from './../data/actions';
 
 
 
-const dateSelectorComponent = ({ selectedDate, availableDates, selectDate }) => (
-  <select name="date" onChange={ e => selectDate(e.target.value) }>
-    {
-      availableDates.map(date => (
-        <option value={date}>{ new Date(date).toDateString() }</option>
-      ))
-    }
-  </select>
+const dateSelectorComponent = ({ selectedDate, selectDate }) => (
+  <input type="date" name="date" value={ selectedDate } onChange={ e => selectDate(e.target.value) } />
 );
 
 const store2props = store => ({
-  selectedDate: store.ui.selectedDate,
-  availableDates: Object.keys(store.bookings.byDate)
+  selectedDate: store.ui.selectedDate
 });
 
 const dispatch2props = ({
