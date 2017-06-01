@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { loadLatestBookings } from './data/actions';
 
 import Header from './components/Header';
-import BookingsTable from './components/BookingsTable';
+import BookingsTableView from './components/BookingsTableView';
 import BookingDetailView from './components/BookingDetailView';
 
 
@@ -26,7 +26,7 @@ export default class App extends Component {
       <div className="bui-app">
         <Header />
         <main>
-          <BookingsTable />
+          <BookingsTableView />
           <BookingDetailView />
         </main>
       </div>
