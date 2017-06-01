@@ -6,7 +6,7 @@ import { selectDate } from './../data/actions';
 
 
 const dateSelectorComponent = ({ selectedDate, selectDate }) => (
-  <input type="date" name="date" value={ selectedDate } onChange={ e => selectDate(e.target.value) } />
+  <input type="date" name="date" value={ selectedDate } onChange={ e => selectDate(e.target.value) } required />
 );
 
 const store2props = store => ({
