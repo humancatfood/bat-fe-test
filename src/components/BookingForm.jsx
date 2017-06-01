@@ -109,11 +109,12 @@ export default class BookingForm extends React.Component
         </fieldset>
         <fieldset>
           <legend>Time</legend>
-          <input type="time" name="time" value={ time } onChange={ this._onChange } />
+          <input type="time" name="time" value={ time } onChange={ this._onChange } required />
         </fieldset>
         <fieldset>
           <legend>Covers</legend>
-          <input type="number" name="partySize" value={ partySize } onChange={ this._onChange } />
+          <input type="number" name="partySize" value={ partySize } onChange={ this._onChange }
+                 required min="1" />
         </fieldset>
         <fieldset>
           <legend>Seated</legend>
