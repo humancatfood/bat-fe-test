@@ -8,10 +8,14 @@ import DateSelector from './DateSelector';
 
 
 
-@connect(store => ({
-  bookings: store.bookings.byDate[store.ui.selectedDate],
-  selectedBooking: store.ui.selectedBooking
-}), {
+@connect(store => {
+  const { bookings: {byId={}, byDate={}}, ui: {selectedDate=null}} = store;
+  const ids = byDate[selectedDate];
+  return {
+    bookings: ids && ids.map(id => byId[id]),
+    selectedBooking: store.ui.selectedBooking
+  };
+}, {
   selectBooking
 })
 export default class BookingsTable extends React.Component

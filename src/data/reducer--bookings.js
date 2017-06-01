@@ -12,13 +12,12 @@ export default (state=bookingsDefaultState, action) => {
   switch (action.type)
   {
 
-    case ACTIONS.RECEIVE_BOOKINGS:
-
+    case ACTIONS.RECEIVE_BOOKINGS: {
       const { bookings, date } = action.payload;
       return {
         ...state,
         byDate: {
-          [date]: bookings
+          [date]: bookings.map(booking => booking.id)
         },
         byId: {
           ...state.byId,
