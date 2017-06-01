@@ -20,9 +20,6 @@ export default class BookingsTable extends React.Component
   {
     const { bookings, selectedBooking, selectBooking } = this.props;
 
-
-    console.log("render:", this.state, bookings, selectedBooking);
-
     return (
       <section>
         <label htmlFor="">
