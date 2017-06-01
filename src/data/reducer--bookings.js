@@ -13,10 +13,19 @@ export default (state=bookingsDefaultState, action) => {
   {
 
     case ACTIONS.RECEIVE_BOOKINGS:
+
+      const { bookings, date } = action.payload;
       return {
         ...state,
         byDate: {
-          [action.payload.date]: action.payload.bookings
+          [date]: bookings
+        },
+        byId: {
+          ...state.byId,
+          ...bookings.reduce((result, booking) => {
+            result[booking.id] = booking;
+            return result;
+          }, {})
         }
       };
 

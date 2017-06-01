@@ -4,7 +4,7 @@ import { ACTIONS } from './actions';
 
 export const uiDefaultState = {
   selectedDate: undefined,
-  selectedId: undefined
+  selectedBookingId: undefined
 };
 
 export default (state=uiDefaultState, action) => {
@@ -16,6 +16,12 @@ export default (state=uiDefaultState, action) => {
       return {
         ...state,
         selectedDate: action.payload.date
+      };
+
+    case ACTIONS.SELECT_BOOKING:
+      return {
+        ...state,
+        selectedBookingId: action.payload.booking && action.payload.booking.id
       };
 
     default:

@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getLatestBookings } from './data/bookings-service';
 import { loadLatestBookings } from './data/actions';
 
 import Header from './components/Header';
@@ -11,58 +10,27 @@ import BookingDetailView from './components/BookingDetailView';
 
 
 
-@connect(() => {}, {
+@connect(() => ({}), {
   loadLatestBookings
 })
-// If you use React Router, make this component
-// render <Router> with your routes. Currently,
-// only synchronous routes are hot reloaded, and
-// you will see a warning from <Router> on every reload.
-// You can ignore this warning. For details, see:
-// https://github.com/reactjs/react-router/issues/2182
 export default class App extends Component {
-
-  constructor (...args)
-  {
-    super(...args);
-    this.state = {
-      bookings: {}
-    };
-  }
 
   componentWillMount ()
   {
     this.props.loadLatestBookings();
-    getLatestBookings()
-      .then(bookings => this.setState({ bookings }));
   }
 
   render ()
   {
-    const { bookings: {bookings, date}, selected } = this.state;
-
     return (
       <div className="bui-app">
         <Header />
         <main>
-          {
-            bookings &&
-              <BookingsTable date={ date } bookings={ bookings } selectedBooking={ selected } onSelect={ booking => this._selectBooking(booking)}/>
-          }
-          {
-            selected &&
-              <BookingDetailView selectedBooking={ selected } onClose={ () => this._selectBooking(null) } />
-          }
+          <BookingsTable />
+          <BookingDetailView />
         </main>
       </div>
     );
-  }
-
-  _selectBooking (booking)
-  {
-    this.setState({
-      selected: booking
-    });
   }
 
 }

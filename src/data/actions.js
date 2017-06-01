@@ -3,6 +3,7 @@ import { getLatestBookings } from './bookings-service';
 
 export const ACTIONS = {
   SELECT_DATE: 'SELECT_DATE',
+  SELECT_BOOKING: 'SELECT_BOOKING',
 
   LOAD_BOOKINGS: 'LOAD_BOOKINGS',
   RECEIVE_BOOKINGS: 'RECEIVE_BOOKINGS',
@@ -16,6 +17,15 @@ export const selectDate = date => ({
     date
   }
 });
+
+
+export const selectBooking = booking => ({
+  type: ACTIONS.SELECT_BOOKING,
+  payload: {
+    booking
+  }
+});
+
 
 
 export const loadBookings = () => ({
