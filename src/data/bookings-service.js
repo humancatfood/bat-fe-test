@@ -24,4 +24,4 @@ export const getLatestBookings = async () => data[data.length-1];
 export const getBookingsForDate = async (date=null) => data.find(bookings => date === bookings.date);
 
 
-export const saveBookings = async () => data;
+export const saveBooking = async (booking) => booking;

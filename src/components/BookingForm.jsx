@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectBooking } from './../data/actions';
+import { selectBooking, updateBooking } from './../data/actions';
 
 
 
 @connect(store => ({
   booking: store.bookings.byId[store.ui.selectedBookingId]
 }), {
-  selectBooking
+  selectBooking,
+  updateBooking
 })
 export default class BookingForm extends React.Component
 {
@@ -58,7 +59,10 @@ export default class BookingForm extends React.Component
   _onSubmit (event)
   {
     event.preventDefault();
-    console.log("submitting:", this.state);
+    this.props.updateBooking(this._stateToProps(this.state));
+    this.setState({
+      dirty: false
+    });
   }
 
   _propsToState (props)
@@ -68,6 +72,16 @@ export default class BookingForm extends React.Component
       ...booking,
       status: booking.cancelled ? 'cancelled' : booking.seated ? 'yes' : 'no',
       time: booking.time.replace('.', ':')
+    };
+  }
+
+  _stateToProps (state)
+  {
+    return {
+      ...state,
+      seated: state.status === 'yes',
+      cancelled: state.status === 'cancelled',
+      time: state.time.replace(':', '.')
     };
   }
 

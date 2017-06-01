@@ -1,12 +1,15 @@
-import { getLatestBookings } from './bookings-service';
+import { getLatestBookings, saveBooking } from './bookings-service';
 
 
 export const ACTIONS = {
   SELECT_DATE: 'SELECT_DATE',
   SELECT_BOOKING: 'SELECT_BOOKING',
 
+  SET_BUSY: 'SET_BUSY',
+
   LOAD_BOOKINGS: 'LOAD_BOOKINGS',
   RECEIVE_BOOKINGS: 'RECEIVE_BOOKINGS',
+  UPDATE_BOOKING: 'UPDATE_BOOKING'
 };
 
 
@@ -27,9 +30,11 @@ export const selectBooking = booking => ({
 });
 
 
-
-export const loadBookings = () => ({
-  type: ACTIONS.LOAD_BOOKINGS
+export const setBusy = busy => ({
+  type: ACTIONS.SET_BUSY,
+  payload: {
+    busy
+  }
 });
 
 
@@ -43,7 +48,7 @@ export const receiveBookings = (date, bookings) => ({
 
 
 export const loadLatestBookings = () => async dispatch => {
-  dispatch(loadBookings());
+  dispatch(setBusy(true));
 
   try
   {
@@ -55,5 +60,29 @@ export const loadLatestBookings = () => async dispatch => {
   {
     console.error(e);
   }
+  dispatch(setBusy(false));
+
+};
+
+
+export const updateBooking = booking => async dispatch => {
+
+  dispatch(setBusy(true));
+
+  try
+  {
+    const newBooking = await saveBooking(booking);
+    dispatch({
+      type: ACTIONS.UPDATE_BOOKING,
+      payload: {
+        newBooking
+      }
+    });
+  }
+  catch (e)
+  {
+    console.error(e);
+  }
+  dispatch(setBusy(false));
 
 };
