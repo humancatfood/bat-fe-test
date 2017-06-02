@@ -1,6 +1,12 @@
 var path = require('path');
 var webpack = require('webpack');
 
+// const precss = require('precss');
+const cssImport = require('postcss-import');
+const autoprefixer = require('autoprefixer');
+
+
+
 module.exports = {
   entry: './src/index.js',
 
@@ -27,8 +33,29 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
+        test: /\.(css|sass|scss)$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: 'inline',
+              plugins: [
+                cssImport,
+                autoprefixer({
+                  browsers: ['last 4 versions']
+                })
+              ]
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
       },
       {
         test: /\.(png|jpg|svg)$/,
