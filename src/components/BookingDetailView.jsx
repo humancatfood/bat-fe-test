@@ -23,10 +23,10 @@ export default class BookingDetailView extends React.Component
         {
           booking && (
             <BookingForm className="details-view__body" booking={ booking }>
-              <h2 className="details-view__heading">
-                <button onClick={ () => selectBooking(undefined) } className="close-button">X</button>
-                Booking update:
-              </h2>
+              <header className="details-view__heading">
+                <h2>Booking update:</h2>
+                <button onClick={ () => selectBooking(undefined) } className="close-button" title="close" dangerouslySetInnerHTML={{ __html: '&#x02A2F;' }}></button>
+              </header>
             </BookingForm>
           )
         }
