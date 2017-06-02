@@ -23,9 +23,9 @@ export default class App extends Component {
   render ()
   {
     return (
-      <div className="bui-app">
-        <Header />
-        <main>
+      <div className="layout">
+        <Header className="layout__header"/>
+        <main className="layout__body">
           <BookingsTableView />
           <BookingDetailView />
         </main>

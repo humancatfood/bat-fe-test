@@ -19,7 +19,7 @@ export default class BookingsTableView extends React.Component
     const { hasBookings } = this.props;
 
     return (
-      <section>
+      <section className="table-view">
         <label htmlFor="">
           <h2 className="bui-app-intro">Bookings for <DateSelector /></h2>
         </label>

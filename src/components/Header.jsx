@@ -4,9 +4,8 @@ import logo from '../assets/img/bookatable-by-michelin-logo.svg';
 
 
 
-export default () => (
-  <header>
-    <img src={ logo } alt="Bookatable by Michelin"/>
+export default (props) => (
+  <header {...props} >
+    <img src={ logo } alt="Bookatable by Michelin" className="header__img"/>
   </header>
-
 );

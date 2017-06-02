@@ -1,0 +1,10 @@
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+@import "_typography.scss";
+@import "_layout.scss";
+@import "_header.scss";
+@import "_detail-view.scss";
+@import "_bookings-form.scss";

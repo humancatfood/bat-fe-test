@@ -1,0 +1,82 @@
+.bookings-form {
+    border: 1px solid black;
+
+    fieldset {
+        border: none;
+        text-align: left;
+        padding: 10px 0;
+        margin: 20px 0;
+
+        legend {
+            font-weight: bold;
+            font-size: 12px;
+        }
+    }
+
+    input,
+    label,
+    select,
+    button,
+    textarea {
+        font-size: 16px;
+        font-weight: lighter;
+        cursor: pointer;
+    }
+
+    label {
+        display: block;
+        cursor: pointer;
+    }
+
+    input {
+        border: none;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+
+    button.button--large {
+        float: right;
+        margin-left: 10px;
+        padding: 8px 16px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 1000px;
+        background-color: transparent;
+
+        &[type=reset] {
+            color: darkgrey;
+            border: none;
+            text-decoration: underline;
+        }
+
+        &[type=submit] {
+            color: darkgreen;
+            border-color: darkgreen;
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    }
+
+    .name-input-row {
+        display: flex;
+        align-content: center;
+        > select {
+            width: 3rem;
+        }
+        > input {
+            width: calc(50% - 2rem);
+            padding: 0 10px;
+        }
+    }
+}
+
+
+
+

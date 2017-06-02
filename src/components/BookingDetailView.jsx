@@ -18,21 +18,20 @@ export default class BookingDetailView extends React.Component
   {
     const { booking, selectBooking } = this.props;
 
-    if (!booking)
-    {
-      return null;
-    }
-    else {
-      return (
-        <section className="bookings-detail-view">
-          <h2 className="bui-app-intro">
-            Booking update:
-            <button onClick={ () => selectBooking(undefined) } style={{float: 'right'}}>X</button>
-          </h2>
-          <BookingForm booking={ booking }/>
-        </section>
-      );
-    }
+    return (
+      <section className="details-view">
+        {
+          booking && (
+            <BookingForm className="details-view__body" booking={ booking }>
+              <h2 className="details-view__heading">
+                <button onClick={ () => selectBooking(undefined) } className="close-button">X</button>
+                Booking update:
+              </h2>
+            </BookingForm>
+          )
+        }
+      </section>
+    );
 
   }
 }

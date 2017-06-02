@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 
 import { selectBooking, updateBooking } from './../data/actions';
@@ -89,23 +90,32 @@ export default class BookingForm extends React.Component
 
   render ()
   {
+    const { className } = this.props;
     const { dirty, title, firstName, lastName, time, partySize, status, notes} = this.state;
 
     return (
       <form onChange={ this._onChange }
             onSubmit={ this._onSubmit }
-            onReset={ this._onReset }>
+            onReset={ this._onReset }
+            className={ classnames(className, 'bookings-form' ) }>
+        {
+          this.props.children
+        }
         <fieldset>
           <legend>Name</legend>
-          <select name="title" value={ title } onChange={ this._onChange } >
-            {
-              ['Mr', 'Mrs', 'Miss', 'Ms', 'Dr'].map(abbr => (
-                <option key={ abbr } value={ abbr }>{ abbr }</option>
-              ))
-            }
-          </select>
-          <input type="text" name="firstName" value={ firstName } onChange={ this._onChange } />
-          <input type="text" name="lastName" value={ lastName } onChange={ this._onChange } />
+
+          <div className="name-input-row">
+            <select name="title" value={ title } onChange={ this._onChange } className="static">
+              {
+                ['Mr', 'Mrs', 'Miss', 'Ms', 'Dr'].map(abbr => (
+                  <option key={ abbr } value={ abbr }>{ abbr }</option>
+                ))
+              }
+            </select>
+            <input type="text" name="firstName" value={ firstName } onChange={ this._onChange } className="dynamic" />
+            <input type="text" name="lastName" value={ lastName } onChange={ this._onChange } className="dynamic" />
+          </div>
+
         </fieldset>
         <fieldset>
           <legend>Time</legend>
@@ -128,8 +138,8 @@ export default class BookingForm extends React.Component
         </fieldset>
 
         <fieldset>
-          <button type="submit" disabled={ !dirty }>Save Changes</button>
-          <button type="reset" disabled={ !dirty }>Cancel</button>
+          <button type="submit" disabled={ !dirty } className="button--large">Save Changes</button>
+          <button type="reset" disabled={ !dirty } className="button--large">Reset</button>
         </fieldset>
 
       </form>
