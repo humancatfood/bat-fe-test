@@ -62,10 +62,15 @@ export default class BookingForm extends React.Component
   _onSubmit (event)
   {
     event.preventDefault();
-    this.props.updateBooking(this._stateToProps(this.state));
+
+    const { updateBooking, selectBooking } = this.props;
     this.setState({
       dirty: false
     });
+
+    updateBooking(this._stateToProps(this.state))
+      .then(selectBooking(null));
+
   }
 
   _propsToState (props)
