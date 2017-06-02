@@ -21,6 +21,7 @@
     .has-selected & {
         opacity: 0.999;
     }
+
     &__heading {
 
         margin: 30px 0;
@@ -56,8 +57,8 @@
         align-items: center;
         justify-content: center;
 
-        transition: opacity 0.15s ease-in-out,
-                    padding 0.15s ease-in-out;
+        transition: padding 0.15s ease-in-out,
+                    opacity 0.15s ease-in-out 0.075s;
 
         &__body {
             min-width: 300px;
@@ -113,6 +114,7 @@
 
 }
 
+
 @media (min-width: $cut-off-point-2) {
 
     .details-view {
@@ -120,14 +122,3 @@
         top: $header-height-lg;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
