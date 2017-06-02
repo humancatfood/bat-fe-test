@@ -12,7 +12,7 @@ import TableHeader from './BookingsTableHeader';
   const ids = byDate[selectedDate];
   return {
     bookings: ids && ids.map(id => byId[id]),
-    selectedBooking: store.ui.selectedBooking,
+    selectedBookingId: store.ui.selectedBookingId,
     sortProp,
     sortOrder
   };
@@ -24,7 +24,7 @@ export default class BookingsTable extends React.Component
 {
   render()
   {
-    const { bookings, selectedBooking, selectBooking, sortProp, sortOrder } = this.props;
+    const { bookings, selectedBookingId, selectBooking, sortProp, sortOrder } = this.props;
 
     return (
       <table className="bookings-table">
@@ -41,8 +41,9 @@ export default class BookingsTable extends React.Component
           this._sortBookings(bookings, sortProp, sortOrder).map(booking => (
             <tr key={ booking.id }
                 className={ classnames({
+                  seated: booking.seated,
                   cancelled: booking.cancelled,
-                  selected: selectedBooking && booking.id === selectedBooking.id
+                  selected: selectedBookingId === booking.id
                 }) }
                 onClick={ () => selectBooking(booking) }>
               <td>{ `${ booking.title } ${ booking.firstName } ${ booking.lastName }` }</td>
