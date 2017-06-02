@@ -1,3 +1,7 @@
+@import '_variables.scss';
+
+
+
 html,
 body,
 #app {
@@ -15,9 +19,27 @@ body,
 
 
 .layout__body {
-    padding: 10px 20px;
+    margin: 0 auto;
+    width: 100%;
 }
 
+
+
+
+@media (min-width: $cut-off-point-1) {
+
+    .layout__body {
+        width: $cut-off-point-1;
+    }
+
+}
+
+@media (min-width: $cut-off-point-2) {
+
+    .layout__body{
+        width: $cut-off-point-2;
+    }
+}
 
 
 

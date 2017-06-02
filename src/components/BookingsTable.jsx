@@ -27,7 +27,7 @@ export default class BookingsTable extends React.Component
     const { bookings, selectedBookingId, selectBooking, sortProp, sortOrder } = this.props;
 
     return (
-      <table className="bookings-table">
+      <table className={ classnames('bookings-table', this.props.className) }>
         <thead>
         <tr>
           <TableHeader value="lastName" label="Name" />

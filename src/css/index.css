@@ -1,12 +1,11 @@
 * {
     box-sizing: border-box;
     font-family: sans-serif;
-    outline: none;
 }
 
 @import "_typography.scss";
 @import "_layout.scss";
 @import "_header.scss";
-@import "_detail-view.scss";
+@import "_section-views.scss";
 @import "_bookings-form.scss";
 @import "_bookings-table.scss";

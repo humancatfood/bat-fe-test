@@ -1,6 +1,7 @@
 /* Feel free to edit */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
 
 import { loadLatestBookings } from './data/actions';
 
@@ -10,7 +11,9 @@ import BookingDetailView from './components/BookingDetailView';
 
 
 
-@connect(() => ({}), {
+@connect(store => ({
+  hasSelected: !!store.ui.selectedBookingId
+}), {
   loadLatestBookings
 })
 export default class App extends Component {
@@ -25,7 +28,7 @@ export default class App extends Component {
     return (
       <div className="layout">
         <Header className="layout__header"/>
-        <main className="layout__body">
+        <main className={ classnames('layout__body', {'has-selected': this.props.hasSelected}) }>
           <BookingsTableView />
           <BookingDetailView />
         </main>

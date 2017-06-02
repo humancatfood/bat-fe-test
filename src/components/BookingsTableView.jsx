@@ -20,16 +20,16 @@ export default class BookingsTableView extends React.Component
 
     return (
       <section className="table-view">
-        <label htmlFor="">
+        <label className="table-view__header">
           <h2 className="bui-app-intro">Bookings for <DateSelector /></h2>
         </label>
         {
           hasBookings &&
-            <BookingsTable />
+            <BookingsTable className="table-view__body"/>
         }
         {
           !hasBookings &&
-            <div>
+            <div className="table-view__body">
               <p>Sorry, no bookings available for the selected day</p>
             </div>
         }
