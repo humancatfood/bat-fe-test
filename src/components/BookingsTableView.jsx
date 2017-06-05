@@ -9,7 +9,7 @@ import BookingsTable from './BookingsTable';
 @connect(store => {
   const { bookings: {byDate}, ui: {selectedDate}} = store;
   return {
-    hasBookings: byDate && byDate[selectedDate] && byDate[selectedDate].length
+    hasBookings: !!(byDate && byDate[selectedDate] && byDate[selectedDate].length)
   };
 })
 export default class BookingsTableView extends React.Component

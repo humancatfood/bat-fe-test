@@ -1,4 +1,4 @@
-import { getLatestBookings, saveBooking } from './bookings-service';
+import { getLatestBookings, getBookingsForDate, saveBooking } from './bookings-service';
 
 
 export const ACTIONS = {
@@ -14,15 +14,6 @@ export const ACTIONS = {
 };
 
 
-
-export const selectDate = date => ({
-  type: ACTIONS.SELECT_DATE,
-  payload: {
-    date
-  }
-});
-
-
 export const selectBooking = booking => ({
   type: ACTIONS.SELECT_BOOKING,
   payload: {
@@ -35,6 +26,14 @@ export const setBusy = busy => ({
   type: ACTIONS.SET_BUSY,
   payload: {
     busy
+  }
+});
+
+
+export const setDate = date => ({
+  type: ACTIONS.SELECT_DATE,
+  payload: {
+    date
   }
 });
 
@@ -61,7 +60,7 @@ export const loadLatestBookings = () => async dispatch => {
 
   try
   {
-    const {date, bookings}  = await getLatestBookings();
+    const { date, bookings } = await getLatestBookings();
     dispatch(receiveBookings(date, bookings));
     dispatch(selectDate(date));
   }
@@ -90,6 +89,30 @@ export const updateBooking = newBooking => async dispatch => {
   }
   catch (e)
   {
+    console.error(e);
+  }
+  dispatch(setBusy(false));
+
+};
+
+
+export const selectDate = date => async dispatch => {
+
+  dispatch(setBusy(true));
+
+  try {
+    const bookings = await getBookingsForDate(date);
+    if (bookings)
+    {
+      dispatch(receiveBookings(date, bookings.bookings));
+    }
+    else
+    {
+      dispatch(receiveBookings(date, []));
+    }
+    dispatch(setDate(date));
+  }
+  catch (e) {
     console.error(e);
   }
   dispatch(setBusy(false));
