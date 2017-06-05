@@ -7,7 +7,9 @@ import { selectBooking, sortBy } from './../data/actions';
 import TableHeader from './BookingsTableHeader';
 
 
+
 @connect(store => {
+  // TODO: refactor this. This component knows way too much about the store-layout
   const { bookings: {byId={}, byDate={}}, ui: {selectedDate=null, sortProp, sortOrder}} = store;
   const ids = byDate[selectedDate];
   return {

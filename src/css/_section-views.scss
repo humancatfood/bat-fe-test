@@ -45,7 +45,7 @@
     }
 }
 
-
+// on mobile, display the bookings-detail form as a modal
 @media (max-width: $cut-off-point-1 - 1) {
 
     .details-view {
@@ -81,6 +81,7 @@
 }
 
 
+// on larger screens, show both sections side by side
 @media (min-width: $cut-off-point-1) {
 
     .table-view {

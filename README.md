@@ -1,50 +1,60 @@
-# Basic React dev environment with hot loading
-
-**NB** To be used as part of the _Bookatable Front End and React Assessment_. See the included `task_docs` folder for full instructions and wireframes.
-
-### Requirements
-
-Built using
+# Bookatable Front End Test
 
 
-```
-Node.js:   6.9.5  
-npm:       3.10.10
-```
+To run:
+
+1) clone the repo and cd into it
+2) `npm/yarn install`
+3) `npm/yarn start`
+
+_OR_
+
+Go to 
+
+https://humancatfood.github.io/bat-fe-test/
+
+## Requirements
 
 
-### Usage
+> * See which diners have already arrived 
+> * Tell which diners have yet to arrive
+> * Quickly see which diners have cancelled their bookings
 
-Hot loading / live-editing React components is enabled.
+Yes, you can sort the bookings table by status to see all seated / unseated / cancelled people grouped together. 
 
-```
-npm install
-npm start
-open http://localhost:3000
-```
+(A better solution might be a proper filter.)
+  
+> * Tell quickly which booking to expect to arrive next
 
+Yes, you can sort the bookings table by time. 
 
-#### WebStorm Users
+(A better solution might allow filtering out bookings that are in the past so the next  expected on is always on top.) 
 
-Because the WebStorm IDE uses "safe writes" by default, Webpack's file-watcher won't recognize file changes, so hot-loading won't work. To fix this, disable "safe write" in WebStorm.
+> * Change the status of a booking
 
+Yes, you can do that. Click on a booking and edit it in the form.
 
-### Building
+(A better solution might have a quick-edit feature that lets you mark people as seated without opening the booking)
 
-A basic production script is included that builds your app to a `dist` folder
+> *Tell one booking from another
 
-```
-npm run build
-```
+Well, they're in different rows. Should be enough, no?
 
 
-### Dependencies
+> * No UI libraries e.g. Bootstrap or Material-UI
+> * Do not use additional or alternative JavaScript processors i.e. no CoffeeScript, LiveScript or TypeScript
+> * No JavaScript helper frameworks or animation libraries such as jQuery, Dojo, Velocity etc.
 
-* React
-* Webpack
-* [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
-* [babel-loader](https://github.com/babel/babel-loader)
-* [react-hot-loader](https://github.com/gaearon/react-hot-loader)
+Nope, did none of that (unless you count `babel-polyfill` or `classnames`)
 
----
 
+##Extra bits
+
+From the wireframes and the way the mock-data is laid out (array of objects that include a date) I assume that it's supposed to handle multiple dates' worth of booking data. I've added some more mock-bookings. Change the date to the 11., 12., or 16. March to see them.
+
+
+##Known problems & TODOs
+
+- Fix the build-process to copy the favicon to the dist-folder or it won't work after deploying.
+- Make the build-process more data-driven, so there is less stuff hardcoded into the index.html file.
+- Factor the map-state-to props functions into the respective reducers so the components aren't so coupled to the store-layout.
