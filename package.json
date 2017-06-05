@@ -8,7 +8,7 @@
     "build": "cross-env NODE_ENV=production webpack -p --config webpack.config.production.js",
     "postbuild": "copyfiles index.html dist",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "gh-pages-deploy"
+    "deploy": "STATIC_PATH=/bat-fe-test/ gh-pages-deploy"
   },
   "keywords": [],
   "author": "",

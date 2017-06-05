@@ -7,13 +7,14 @@ const autoprefixer = require('autoprefixer');
 
 
 
+
 module.exports = {
   entry: './src/index.js',
 
   output: {
     filename: 'static/bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+    publicPath: process.env.STATIC_PATH || '/'
   },
 
   devtool: 'source-map',
