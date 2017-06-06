@@ -58,3 +58,4 @@ From the wireframes and the way the mock-data is laid out (array of objects that
 - Fix the build-process to copy the favicon to the dist-folder or it won't work after deploying.
 - Make the build-process more data-driven, so there is less stuff hardcoded into the index.html file.
 - Factor the map-state-to props functions into the respective reducers so the components aren't so coupled to the store-layout.
+- Trying to submit the form by pressing `enter` in any of the fields fails with the error `Form submission canceled because the form is not connected`
