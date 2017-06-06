@@ -5,9 +5,9 @@ import { selectDate } from './../data/actions';
 
 
 
-const dateSelectorComponent = ({ selectedDate, selectDate }) => (
+const dateSelectorComponent = ({ selectedDate, selectDate }) => selectedDate ? (
   <input type="date" name="date" value={ selectedDate } onChange={ e => selectDate(e.target.value) } required />
-);
+) : null;
 
 const store2props = store => ({
   selectedDate: store.ui.selectedDate
