@@ -7,21 +7,69 @@ import bookingsByDay from './bookings.json';
 
 
 
-const data = bookingsByDay
-  .map(day => ({
-    ...day,
-    bookings: day.bookings.map(booking => ({
-      ...booking,
-      id: v4()
-    }))
-  }))
-  .sort((a, b) => new Date(a.date) - new Date(b.date));
+const cache = {};
+
+const _fetchData = async () => {
+
+  if (!cache.data)
+  {
+    cache.data = bookingsByDay
+      .map(day => ({
+        ...day,
+        bookings: day.bookings.map(booking => ({
+          ...booking,
+          id: v4()
+        }))
+      }))
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
+  }
+
+  return cache.data;
+
+};
+
+const _saveData = async (newBooking) => {
+
+  const data = await _fetchData();
+
+  return data.some(({ bookings }) => {
+    const oldBooking = bookings.find(booking => booking.id === newBooking.id);
+    if (oldBooking)
+    {
+      Object.assign(oldBooking, newBooking);
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  });
+
+};
 
 
-export const getLatestBookings = async () => data[data.length-1];
+
+export const getLatestBookings = async () => {
+  const data = await _fetchData();
+  return data[data.length-1];
+};
 
 
-export const getBookingsForDate = async (date=null) => data.find(bookings => date === bookings.date);
+export const getBookingsForDate = async (date=null) => {
+  const data = await _fetchData();
+  return data.find(bookings => date === bookings.date);
+};
 
 
-export const saveBooking = async (booking) => booking;
+export const saveBooking = async (booking) => {
+
+  if (await _saveData(booking))
+  {
+    return booking;
+  }
+  else
+  {
+    throw new Error(404);
+  }
+
+};
