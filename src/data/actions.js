@@ -62,7 +62,7 @@ export const loadLatestBookings = () => async dispatch => {
   {
     const { date, bookings } = await getLatestBookings();
     dispatch(receiveBookings(date, bookings));
-    dispatch(selectDate(date));
+    dispatch(setDate(date));
   }
   catch (e)
   {
