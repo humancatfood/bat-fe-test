@@ -48,12 +48,12 @@ Well, they're in different rows. Should be enough, no?
 Nope, did none of that (unless you count `babel-polyfill` or `classnames`)
 
 
-##Extra bits
+## Extra bits
 
 From the wireframes and the way the mock-data is laid out (array of objects that include a date) I assume that it's supposed to handle multiple dates' worth of booking data. I've added some more mock-bookings. Change the date to the 11., 12., or 16. March to see them.
 
 
-##Known problems & TODOs
+## Known problems & TODOs
 
 - Fix the build-process to copy the favicon to the dist-folder or it won't work after deploying.
 - Make the build-process more data-driven, so there is less stuff hardcoded into the index.html file.
