@@ -1,10 +1,22 @@
 .bookings-form {
 
+    display: flex;
+    flex-direction: column;
+
+    &__header, &__footer {
+        flex: 0;
+    }
+
+    &__body {
+        margin: 20px 0;
+        flex: 1;
+        overflow: scroll;
+    }
+
     fieldset {
         border: none;
         text-align: left;
         padding: 10px 0;
-        margin: 20px 0;
 
         legend {
             font-weight: bold;

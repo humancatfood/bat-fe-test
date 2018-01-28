@@ -95,58 +95,65 @@ export default class BookingForm extends React.Component
 
   render ()
   {
-    const { className } = this.props;
+    const { className, selectBooking } = this.props;
     const { dirty, title, firstName, lastName, time, partySize, status, notes} = this.state;
 
     return (
       <form onChange={ this._onChange }
             onSubmit={ this._onSubmit }
             onReset={ this._onReset }
+            onClick={ e => e.stopPropagation() }
             className={ classnames(className, 'bookings-form' ) }>
-        {
-          this.props.children
-        }
-        <fieldset>
-          <legend>Name</legend>
 
-          <div className="name-input-row">
-            <select name="title" value={ title } onChange={ this._onChange } className="static">
-              {
-                ['Mr', 'Mrs', 'Miss', 'Ms', 'Dr'].map(abbr => (
-                  <option key={ abbr } value={ abbr }>{ abbr }</option>
-                ))
-              }
-            </select>
-            <input type="text" name="firstName" value={ firstName } onChange={ this._onChange } className="dynamic" />
-            <input type="text" name="lastName" value={ lastName } onChange={ this._onChange } className="dynamic" />
-          </div>
+        <header className="bookings-form__header details-view__heading">
+          <h2>Booking update:</h2>
+          <button onClick={ () => selectBooking(undefined) } className="close-button" title="close" dangerouslySetInnerHTML={{ __html: '&#x02A2F;' }}></button>
+        </header>
 
-        </fieldset>
-        <fieldset>
-          <legend>Time</legend>
-          <input type="time" name="time" value={ time } onChange={ this._onChange } required />
-        </fieldset>
-        <fieldset>
-          <legend>Covers</legend>
-          <input type="number" name="partySize" value={ partySize } onChange={ this._onChange }
-                 required min="1" />
-        </fieldset>
-        <fieldset>
-          <legend>Seated</legend>
-          <label><input type="radio" name="status" value="no" onChange={ this._onChange } checked={ status == 'no' } />No</label>
-          <label><input type="radio" name="status" value="yes" onChange={ this._onChange } checked={ status == 'yes' } />Yes</label>
-          <label><input type="radio" name="status" value="cancelled" onChange={ this._onChange } checked={ status == 'cancelled' } />Cancelled</label>
-        </fieldset>
-        <fieldset>
-          <legend>Notes</legend>
-          <textarea name="notes" rows="4" value={ notes } onChange={ this._onChange } ></textarea>
-        </fieldset>
+        <main className="bookings-form__body">
+          <fieldset>
+            <legend>Name</legend>
 
-        <fieldset>
-          <button type="submit" disabled={ !dirty } className="button--large">Save Changes</button>
-          <button type="reset" disabled={ !dirty } className="button--large">Reset</button>
-        </fieldset>
+            <div className="name-input-row">
+              <select name="title" value={ title } onChange={ this._onChange } className="static">
+                {
+                  ['Mr', 'Mrs', 'Miss', 'Ms', 'Dr'].map(abbr => (
+                    <option key={ abbr } value={ abbr }>{ abbr }</option>
+                  ))
+                }
+              </select>
+              <input type="text" name="firstName" value={ firstName } onChange={ this._onChange } className="dynamic" />
+              <input type="text" name="lastName" value={ lastName } onChange={ this._onChange } className="dynamic" />
+            </div>
 
+          </fieldset>
+          <fieldset>
+            <legend>Time</legend>
+            <input type="time" name="time" value={ time } onChange={ this._onChange } required />
+          </fieldset>
+          <fieldset>
+            <legend>Covers</legend>
+            <input type="number" name="partySize" value={ partySize } onChange={ this._onChange }
+                   required min="1" />
+          </fieldset>
+          <fieldset>
+            <legend>Seated</legend>
+            <label><input type="radio" name="status" value="no" onChange={ this._onChange } checked={ status == 'no' } />No</label>
+            <label><input type="radio" name="status" value="yes" onChange={ this._onChange } checked={ status == 'yes' } />Yes</label>
+            <label><input type="radio" name="status" value="cancelled" onChange={ this._onChange } checked={ status == 'cancelled' } />Cancelled</label>
+          </fieldset>
+          <fieldset>
+            <legend>Notes</legend>
+            <textarea name="notes" rows="4" value={ notes } onChange={ this._onChange } ></textarea>
+          </fieldset>
+        </main>
+
+        <footer className="bookings-form__footer">
+          <fieldset>
+            <button type="submit" disabled={ !dirty } className="button--large">Save Changes</button>
+            <button type="reset" disabled={ !dirty } className="button--large">Reset</button>
+          </fieldset>
+        </footer>
       </form>
     );
 

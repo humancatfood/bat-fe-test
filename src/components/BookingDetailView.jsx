@@ -19,15 +19,16 @@ export default class BookingDetailView extends React.Component
     const { booking, selectBooking } = this.props;
 
     return (
-      <section className="details-view">
+      <section
+        className="details-view"
+        onClick={ () => selectBooking(undefined) }
+      >
         {
           booking && (
-            <BookingForm className="details-view__body" booking={ booking }>
-              <header className="details-view__heading">
-                <h2>Booking update:</h2>
-                <button onClick={ () => selectBooking(undefined) } className="close-button" title="close" dangerouslySetInnerHTML={{ __html: '&#x02A2F;' }}></button>
-              </header>
-            </BookingForm>
+            <BookingForm
+              className="details-view__body"
+              booking={ booking }
+            />
           )
         }
       </section>
