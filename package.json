@@ -51,7 +51,6 @@
     "redux-thunk": "^2.2.0",
     "uuid": "^3.0.1"
   },
-
   "gh-pages-deploy": {
     "staticpath": "dist",
     "prep": [
