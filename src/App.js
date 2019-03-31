@@ -11,12 +11,7 @@ import BookingDetailView from './components/BookingDetailView';
 
 
 
-@connect(store => ({
-  hasSelected: !!store.ui.selectedBookingId
-}), {
-  loadLatestBookings
-})
-export default class App extends Component {
+class App extends Component {
 
   componentWillMount ()
   {
@@ -37,3 +32,13 @@ export default class App extends Component {
   }
 
 }
+
+const mapStateToProps = state => ({
+  hasSelected: !!state.ui.selectedBookingId
+});
+
+const mapDispatchToProps = {
+  loadLatestBookings
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

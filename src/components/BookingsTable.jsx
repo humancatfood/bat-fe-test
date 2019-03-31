@@ -8,21 +8,7 @@ import TableHeader from './BookingsTableHeader';
 
 
 
-@connect(store => {
-  // TODO: refactor this. This component knows way too much about the store-layout
-  const { bookings: {byId={}, byDate={}}, ui: {selectedDate=null, sortProp, sortOrder}} = store;
-  const ids = byDate[selectedDate];
-  return {
-    bookings: ids && ids.map(id => byId[id]),
-    selectedBookingId: store.ui.selectedBookingId,
-    sortProp,
-    sortOrder
-  };
-}, {
-  selectBooking,
-  sortBy
-})
-export default class BookingsTable extends React.Component
+class BookingsTable extends React.Component
 {
   render()
   {
@@ -31,30 +17,30 @@ export default class BookingsTable extends React.Component
     return (
       <table className={ classnames('bookings-table', this.props.className) }>
         <thead>
-        <tr>
-          <TableHeader value="lastName" label="Name" />
-          <TableHeader value="time" label="Time" />
-          <TableHeader value="partySize" label="Covers" />
-          <TableHeader value="seated" label="Seated" />
-        </tr>
+          <tr>
+            <TableHeader value="lastName" label="Name" />
+            <TableHeader value="time" label="Time" />
+            <TableHeader value="partySize" label="Covers" />
+            <TableHeader value="seated" label="Seated" />
+          </tr>
         </thead>
         <tbody>
-        {
-          this._sortBookings(bookings, sortProp, sortOrder).map(booking => (
-            <tr key={ booking.id }
+          {
+            this._sortBookings(bookings, sortProp, sortOrder).map(booking => (
+              <tr key={ booking.id }
                 className={ classnames({
                   seated: booking.seated,
                   cancelled: booking.cancelled,
                   selected: selectedBookingId === booking.id
                 }) }
                 onClick={ () => selectBooking(booking) }>
-              <td>{ `${ booking.title } ${ booking.firstName } ${ booking.lastName }` }</td>
-              <td>{ booking.time }</td>
-              <td>{ booking.partySize }</td>
-              <td>{ booking.seated ? 'Y' : 'N' }</td>
-            </tr>
-          ))
-        }
+                <td>{ `${ booking.title } ${ booking.firstName } ${ booking.lastName }` }</td>
+                <td>{ booking.time }</td>
+                <td>{ booking.partySize }</td>
+                <td>{ booking.seated ? 'Y' : 'N' }</td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     );
@@ -66,3 +52,23 @@ export default class BookingsTable extends React.Component
   }
 
 }
+
+const mapStateToProps = state => {
+  // TODO: refactor this. This component knows way too much about the store-layout
+  const { bookings: {byId={}, byDate={}}, ui: {selectedDate=null, sortProp, sortOrder}} = state;
+  const ids = byDate[selectedDate];
+  return {
+    bookings: ids && ids.map(id => byId[id]),
+    selectedBookingId: state.ui.selectedBookingId,
+    sortProp,
+    sortOrder
+  };
+};
+
+
+const mapDispatchToProps = {
+  selectBooking,
+  sortBy
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookingsTable);

@@ -6,13 +6,7 @@ import { selectBooking, updateBooking } from './../data/actions';
 
 
 
-@connect(store => ({
-  booking: store.bookings.byId[store.ui.selectedBookingId]
-}), {
-  selectBooking,
-  updateBooking
-})
-export default class BookingForm extends React.Component
+class BookingForm extends React.Component
 {
 
   constructor (props, ...rest)
@@ -100,10 +94,10 @@ export default class BookingForm extends React.Component
 
     return (
       <form onChange={ this._onChange }
-            onSubmit={ this._onSubmit }
-            onReset={ this._onReset }
-            onClick={ e => e.stopPropagation() }
-            className={ classnames(className, 'bookings-form' ) }>
+        onSubmit={ this._onSubmit }
+        onReset={ this._onReset }
+        onClick={ e => e.stopPropagation() }
+        className={ classnames(className, 'bookings-form' ) }>
 
         <header className="bookings-form__header details-view__heading">
           <h2>Booking update:</h2>
@@ -134,7 +128,7 @@ export default class BookingForm extends React.Component
           <fieldset>
             <legend>Covers</legend>
             <input type="number" name="partySize" value={ partySize } onChange={ this._onChange }
-                   required min="1" />
+              required min="1" />
           </fieldset>
           <fieldset>
             <legend>Seated</legend>
@@ -159,3 +153,14 @@ export default class BookingForm extends React.Component
 
   }
 }
+
+const mapStateToProps = state => ({
+  booking: state.bookings.byId[state.ui.selectedBookingId]
+});
+
+const mapDispatchToProps = {
+  selectBooking,
+  updateBooking
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookingForm);

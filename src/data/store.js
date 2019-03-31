@@ -12,7 +12,7 @@ export default () => {
     thunk
   ];
 
-  if (ENV.DEBUG)
+  if (process.env.NODE_ENV === 'development')
   {
     window.console.info("creating logger");
     middleWare.push(createLogger());
@@ -24,5 +24,3 @@ export default () => {
   );
 
 };
-
-

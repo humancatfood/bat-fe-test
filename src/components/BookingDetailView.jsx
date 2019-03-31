@@ -7,12 +7,7 @@ import BookingForm from './BookingForm';
 
 
 
-@connect(store => ({
-  booking: store.bookings.byId[store.ui.selectedBookingId]
-}), {
-  selectBooking
-})
-export default class BookingDetailView extends React.Component
+class BookingDetailView extends React.Component
 {
   render ()
   {
@@ -36,3 +31,13 @@ export default class BookingDetailView extends React.Component
 
   }
 }
+
+const mapStateToProps = state => ({
+  booking: state.bookings.byId[state.ui.selectedBookingId]
+});
+
+const mapDispatchToProps = {
+  selectBooking
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookingDetailView);

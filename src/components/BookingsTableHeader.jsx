@@ -6,14 +6,7 @@ import { sortBy } from './../data/actions';
 
 
 
-@connect(({ui: {sortProp, sortOrder}}, ownProps) => ({
-  ...ownProps,
-  sortProp,
-  sortOrder
-}), {
-  sortBy
-})
-export default class BookingsTableHeader extends React.Component
+class BookingsTableHeader extends React.Component
 {
   render ()
   {
@@ -28,3 +21,15 @@ export default class BookingsTableHeader extends React.Component
     );
   }
 }
+
+const mapStateToProps = ({ui: {sortProp, sortOrder}}, ownProps) => ({
+  ...ownProps,
+  sortProp,
+  sortOrder
+});
+
+const mapDispatchToProps = {
+  sortBy
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookingsTableHeader);

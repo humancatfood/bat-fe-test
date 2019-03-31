@@ -6,13 +6,7 @@ import BookingsTable from './BookingsTable';
 
 
 
-@connect(store => {
-  const { bookings: {byDate}, ui: {selectedDate}} = store;
-  return {
-    hasBookings: !!(byDate && byDate[selectedDate] && byDate[selectedDate].length)
-  };
-})
-export default class BookingsTableView extends React.Component
+class BookingsTableView extends React.Component
 {
   render ()
   {
@@ -37,3 +31,9 @@ export default class BookingsTableView extends React.Component
     );
   }
 }
+
+const mapStateToProps = ({ bookings: {byDate}, ui: {selectedDate}}) => ({
+  hasBookings: !!(byDate && byDate[selectedDate] && byDate[selectedDate].length)
+});
+
+export default  connect(mapStateToProps)(BookingsTableView);
