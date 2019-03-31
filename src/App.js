@@ -34,11 +34,11 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  hasSelected: !!state.ui.selectedBookingId
+  hasSelected: !!state.ui.selectedBookingId,
 });
 
 const mapDispatchToProps = {
-  loadLatestBookings
+  loadLatestBookings,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

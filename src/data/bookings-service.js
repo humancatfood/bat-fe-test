@@ -18,8 +18,8 @@ const _fetchData = async () => {
         ...day,
         bookings: day.bookings.map(booking => ({
           ...booking,
-          id: v4()
-        }))
+          id: v4(),
+        })),
       }))
       .sort((a, b) => new Date(a.date) - new Date(b.date));
   }

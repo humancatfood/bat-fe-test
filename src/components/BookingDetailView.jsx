@@ -33,11 +33,11 @@ class BookingDetailView extends React.Component
 }
 
 const mapStateToProps = state => ({
-  booking: state.bookings.byId[state.ui.selectedBookingId]
+  booking: state.bookings.byId[state.ui.selectedBookingId],
 });
 
 const mapDispatchToProps = {
-  selectBooking
+  selectBooking,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookingDetailView);

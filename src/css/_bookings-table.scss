@@ -1,64 +1,61 @@
 .bookings-table {
-    width: 100%;
-    text-align: left;
+  width: 100%;
+  text-align: left;
 
 
-    thead {
-        background-color: #ccc;
+  thead {
+    background-color: #ccc;
+  }
+
+  &,
+  & td,
+  & th {
+    position: relative;
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px 10px;
+  }
+
+
+  tr {
+    cursor: pointer;
+
+    &.cancelled {
+      color: #bbb;
+      td:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        right: 10px;
+        border-bottom: 2px solid darkgrey;
+      }
     }
 
-    &,
-    & td,
-    & th {
-        position: relative;
-        border: 1px solid black;
-        border-collapse: collapse;
-        padding: 5px 10px;
+    &.selected {
+      background-color: #666;
+      color: white;
     }
 
-
-    tr {
-        cursor: pointer;
-
-        &.cancelled {
-            color: #bbb;
-            td:after {
-                content: '';
-                position: absolute;
-                top: 50%;
-                left: 10px;
-                right: 10px;
-                border-bottom: 2px solid darkgrey;
-            }
-        }
-
-        &.selected {
-            background-color: #666;
-            color: white;
-        }
-
-        &.seated {
-            background-color: lightgreen;
-        }
-
+    &.seated {
+      background-color: lightgreen;
     }
 
-    .sorter--asc:after {
-        content: ' \2193';
-        margin-left: 10px;
-    }
+  }
 
-    .sorter--desc:after {
-        content: ' \2191';
-        margin-left: 10px;
-    }
+  .sorter--asc:after {
+    content: ' \2193';
+    margin-left: 10px;
+  }
+
+  .sorter--desc:after {
+    content: ' \2191';
+    margin-left: 10px;
+  }
 }
 
 
 section h2 {
-    text-align: left;
-    padding: 10px 0;
+  text-align: left;
+  padding: 10px 0;
 }
-
-
-

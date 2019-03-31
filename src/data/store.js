@@ -9,7 +9,7 @@ import reducers from './reducers';
 export default () => {
 
   const middleWare = [
-    thunk
+    thunk,
   ];
 
   if (process.env.NODE_ENV === 'development')
@@ -20,7 +20,7 @@ export default () => {
 
   return createStore(
     reducers,
-    applyMiddleware(...middleWare)
+    applyMiddleware(...middleWare),
   );
 
 };

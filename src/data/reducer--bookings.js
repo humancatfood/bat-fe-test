@@ -4,7 +4,7 @@ import { ACTIONS } from './actions';
 
 export const bookingsDefaultState = {
   byId: {},
-  byDate: {}
+  byDate: {},
 };
 
 export default (state=bookingsDefaultState, action) => {
@@ -17,15 +17,15 @@ export default (state=bookingsDefaultState, action) => {
       return {
         ...state,
         byDate: {
-          [date]: bookings.map(booking => booking.id)
+          [date]: bookings.map(booking => booking.id),
         },
         byId: {
           ...state.byId,
           ...bookings.reduce((result, booking) => {
             result[booking.id] = booking;
             return result;
-          }, {})
-        }
+          }, {}),
+        },
       };
     }
 
@@ -35,8 +35,8 @@ export default (state=bookingsDefaultState, action) => {
         ...state,
         byId: {
           ...state.byId,
-          [booking.id]: booking
-        }
+          [booking.id]: booking,
+        },
       };
     }
 

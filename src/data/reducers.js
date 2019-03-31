@@ -7,5 +7,5 @@ import ui from './reducer--ui';
 
 export default combineReducers({
   bookings,
-  ui
+  ui,
 });

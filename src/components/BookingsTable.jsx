@@ -31,7 +31,7 @@ class BookingsTable extends React.Component
                 className={ classnames({
                   seated: booking.seated,
                   cancelled: booking.cancelled,
-                  selected: selectedBookingId === booking.id
+                  selected: selectedBookingId === booking.id,
                 }) }
                 onClick={ () => selectBooking(booking) }>
                 <td>{ `${ booking.title } ${ booking.firstName } ${ booking.lastName }` }</td>
@@ -61,14 +61,14 @@ const mapStateToProps = state => {
     bookings: ids && ids.map(id => byId[id]),
     selectedBookingId: state.ui.selectedBookingId,
     sortProp,
-    sortOrder
+    sortOrder,
   };
 };
 
 
 const mapDispatchToProps = {
   selectBooking,
-  sortBy
+  sortBy,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookingsTable);

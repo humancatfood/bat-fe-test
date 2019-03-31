@@ -10,31 +10,31 @@ export const ACTIONS = {
 
   LOAD_BOOKINGS: 'LOAD_BOOKINGS',
   RECEIVE_BOOKINGS: 'RECEIVE_BOOKINGS',
-  UPDATE_BOOKING: 'UPDATE_BOOKING'
+  UPDATE_BOOKING: 'UPDATE_BOOKING',
 };
 
 
 export const selectBooking = booking => ({
   type: ACTIONS.SELECT_BOOKING,
   payload: {
-    booking
-  }
+    booking,
+  },
 });
 
 
 export const setBusy = busy => ({
   type: ACTIONS.SET_BUSY,
   payload: {
-    busy
-  }
+    busy,
+  },
 });
 
 
 export const setDate = date => ({
   type: ACTIONS.SELECT_DATE,
   payload: {
-    date
-  }
+    date,
+  },
 });
 
 
@@ -42,16 +42,16 @@ export const receiveBookings = (date, bookings) => ({
   type: ACTIONS.RECEIVE_BOOKINGS,
   payload: {
     date,
-    bookings
-  }
+    bookings,
+  },
 });
 
 
 export const sortBy = sortProp => ({
   type: ACTIONS.SORT_BY,
   payload: {
-    sortProp
-  }
+    sortProp,
+  },
 });
 
 
@@ -83,8 +83,8 @@ export const updateBooking = newBooking => async dispatch => {
     dispatch({
       type: ACTIONS.UPDATE_BOOKING,
       payload: {
-        booking
-      }
+        booking,
+      },
     });
   }
   catch (e)

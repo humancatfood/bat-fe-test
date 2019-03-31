@@ -4,23 +4,23 @@
 
 html,
 body,
-#app {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .layout {
-    display: flex;
-    flex-direction: column;
-    max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
 }
 
 
 .layout__body {
-    margin: 0 auto;
-    width: 100%;
+  margin: 0 auto;
+  width: 100%;
 }
 
 
@@ -28,22 +28,16 @@ body,
 
 @media (min-width: $cut-off-point-1) {
 
-    .layout__body {
-        width: $cut-off-point-1;
-    }
+  .layout__body {
+    width: $cut-off-point-1;
+  }
 
 }
 
 @media (min-width: $cut-off-point-2) {
 
-    .layout__body{
-        width: $cut-off-point-2;
-    }
+  .layout__body{
+    width: $cut-off-point-2;
+  }
 
 }
-
-
-
-
-
-

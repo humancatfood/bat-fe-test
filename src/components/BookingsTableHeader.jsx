@@ -25,11 +25,11 @@ class BookingsTableHeader extends React.Component
 const mapStateToProps = ({ui: {sortProp, sortOrder}}, ownProps) => ({
   ...ownProps,
   sortProp,
-  sortOrder
+  sortOrder,
 });
 
 const mapDispatchToProps = {
-  sortBy
+  sortBy,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookingsTableHeader);

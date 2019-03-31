@@ -6,7 +6,7 @@ export const uiDefaultState = {
   selectedDate: undefined,
   selectedBookingId: undefined,
   sortProp: 'time',
-  sortOrder: 1
+  sortOrder: 1,
 };
 
 export default (state=uiDefaultState, action) => {
@@ -17,20 +17,20 @@ export default (state=uiDefaultState, action) => {
     case ACTIONS.SELECT_DATE:
       return {
         ...state,
-        selectedDate: action.payload.date
+        selectedDate: action.payload.date,
       };
 
     case ACTIONS.SELECT_BOOKING:
       return {
         ...state,
-        selectedBookingId: action.payload.booking && action.payload.booking.id
+        selectedBookingId: action.payload.booking && action.payload.booking.id,
       };
 
     case ACTIONS.SORT_BY:
       return {
         ...state,
         sortProp: action.payload.sortProp,
-        sortOrder: action.payload.sortProp === state.sortProp ? state.sortOrder * -1 : 1
+        sortOrder: action.payload.sortProp === state.sortProp ? state.sortOrder * -1 : 1,
       };
 
     default:

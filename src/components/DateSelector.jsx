@@ -10,11 +10,11 @@ const dateSelectorComponent = ({ selectedDate, selectDate }) => selectedDate ? (
 ) : null;
 
 const store2props = store => ({
-  selectedDate: store.ui.selectedDate
+  selectedDate: store.ui.selectedDate,
 });
 
 const dispatch2props = ({
-  selectDate
+  selectDate,
 });
 
 

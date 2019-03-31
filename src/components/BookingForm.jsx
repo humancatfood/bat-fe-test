@@ -19,7 +19,7 @@ class BookingForm extends React.Component
 
     this.state = {
       dirty: false,
-      ...this._propsToState(props)
+      ...this._propsToState(props),
     };
 
   }
@@ -30,7 +30,7 @@ class BookingForm extends React.Component
     {
       this.setState({
         dirty: false,
-        ...this._propsToState(nextProps)
+        ...this._propsToState(nextProps),
       });
     }
   }
@@ -39,7 +39,7 @@ class BookingForm extends React.Component
   {
     this.setState({
       dirty: true,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
@@ -48,7 +48,7 @@ class BookingForm extends React.Component
     setTimeout(() => {
       this.setState({
         dirty: false,
-        ...this._propsToState(this.props)
+        ...this._propsToState(this.props),
       });
     });
   }
@@ -59,7 +59,7 @@ class BookingForm extends React.Component
 
     const { updateBooking, selectBooking } = this.props;
     this.setState({
-      dirty: false
+      dirty: false,
     });
 
     updateBooking(this._stateToProps(this.state))
@@ -73,7 +73,7 @@ class BookingForm extends React.Component
     return {
       ...booking,
       status: booking.cancelled ? 'cancelled' : booking.seated ? 'yes' : 'no',
-      time: booking.time.replace('.', ':')
+      time: booking.time.replace('.', ':'),
     };
   }
 
@@ -83,7 +83,7 @@ class BookingForm extends React.Component
       ...state,
       seated: state.status === 'yes',
       cancelled: state.status === 'cancelled',
-      time: state.time.replace(':', '.')
+      time: state.time.replace(':', '.'),
     };
   }
 
@@ -155,12 +155,12 @@ class BookingForm extends React.Component
 }
 
 const mapStateToProps = state => ({
-  booking: state.bookings.byId[state.ui.selectedBookingId]
+  booking: state.bookings.byId[state.ui.selectedBookingId],
 });
 
 const mapDispatchToProps = {
   selectBooking,
-  updateBooking
+  updateBooking,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookingForm);

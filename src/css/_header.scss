@@ -3,24 +3,24 @@
 
 
 .layout__header {
-    padding: 10px 20px;
-    border-bottom: 2px solid #666;
+  padding: 10px 20px;
+  border-bottom: 2px solid #666;
 
-    img {
-        max-height: $header-height-sm - 22px;
-        max-width: 100%;
-    }
+  img {
+    max-height: $header-height-sm - 22px;
+    max-width: 100%;
+  }
 }
 
 
 @media (min-width: $cut-off-point-1) {
 
-    .layout__header {
-        padding: 16px 28px;
+  .layout__header {
+    padding: 16px 28px;
 
-        img {
-            max-height: $header-height-lg - 34px;
-        }
+    img {
+      max-height: $header-height-lg - 34px;
     }
+  }
 
 }
