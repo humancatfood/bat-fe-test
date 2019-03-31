@@ -132,9 +132,9 @@ class BookingForm extends React.Component
           </fieldset>
           <fieldset>
             <legend>Seated</legend>
-            <label><input type="radio" name="status" value="no" onChange={ this._onChange } checked={ status == 'no' } />No</label>
-            <label><input type="radio" name="status" value="yes" onChange={ this._onChange } checked={ status == 'yes' } />Yes</label>
-            <label><input type="radio" name="status" value="cancelled" onChange={ this._onChange } checked={ status == 'cancelled' } />Cancelled</label>
+            <label><input type="radio" name="status" value="no" onChange={ this._onChange } checked={ status === 'no' } />No</label>
+            <label><input type="radio" name="status" value="yes" onChange={ this._onChange } checked={ status === 'yes' } />Yes</label>
+            <label><input type="radio" name="status" value="cancelled" onChange={ this._onChange } checked={ status === 'cancelled' } />Cancelled</label>
           </fieldset>
           <fieldset>
             <legend>Notes</legend>

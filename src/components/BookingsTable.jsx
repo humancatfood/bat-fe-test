@@ -48,7 +48,7 @@ class BookingsTable extends React.Component
 
   _sortBookings (bookings, sortProp, sortOrder)
   {
-    return bookings.sort((a, b) => (a[sortProp] > b[sortProp] && 1 || -1)  * sortOrder);
+    return bookings.sort((a, b) => (a[sortProp] > b[sortProp] ? 1 : -1)  * sortOrder);
   }
 
 }
