@@ -12,6 +12,7 @@ body,
 }
 
 .layout {
+  height: 100%;
   display: flex;
   flex-direction: column;
   max-height: 100%;
@@ -19,6 +20,7 @@ body,
 
 
 .layout__body {
+  flex: 1;
   margin: 0 auto;
   width: 100%;
 }
@@ -36,7 +38,7 @@ body,
 
 @media (min-width: $cut-off-point-2) {
 
-  .layout__body{
+  .layout__body {
     width: $cut-off-point-2;
   }
 

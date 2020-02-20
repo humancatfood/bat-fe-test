@@ -1,10 +1,8 @@
-// import './css/index.scss';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 
-import './css/index.scss';
+import './css/compiled.css';
 
 import configureStore from './data/store';
 
