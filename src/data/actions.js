@@ -1,4 +1,4 @@
-import { getLatestBookings, getBookingsForDate, saveBooking } from './bookings-service';
+import { getLatestBookings, getBookingsForDate, saveBooking, subscribe, unsubscribe } from './bookings-service';
 
 
 export const ACTIONS = {
@@ -117,4 +117,18 @@ export const selectDate = date => async dispatch => {
   }
   dispatch(setBusy(false));
 
+};
+
+
+export const subscribeToBookings = () => dispatch => {
+  subscribe(bookings => dispatch({
+    type: ACTIONS.RECEIVE_BOOKINGS, payload: bookings,
+  }));
+};
+
+
+export const unsubscribeFromBookings = () => dispatch => {
+  unsubscribe(err => {
+
+  });
 };

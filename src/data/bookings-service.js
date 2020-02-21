@@ -73,3 +73,11 @@ export const saveBooking = async (booking) => {
   }
 
 };
+
+
+export const subscribe = async cb => _fetchData().then(cb);
+
+export const unsubscribe = async cb => {
+
+
+};
