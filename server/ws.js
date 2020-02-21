@@ -1,4 +1,4 @@
-const db = require('./db');
+const createDB = require('./db');
 
 
 
@@ -49,6 +49,8 @@ module.exports = (ws/* , req */) => {
 
 
 const subscribers = new Set();
+
+const db = createDB();
 
 function onSubscribe (ws) {
   db.find({}, (err, data) => {

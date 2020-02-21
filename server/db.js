@@ -24,7 +24,7 @@ function addFixtures (db) {
       console.error("There's a problem with the database: ", err);
     } else if (!count) {
 
-      const initialData = require('./bookings.json');
+      const initialData = require('bookings.json');
       console.info('initialData:', initialData);
 
       db.insert(initialData, (err, result) => {
