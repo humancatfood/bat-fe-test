@@ -3,7 +3,10 @@
   "version": "1.1.0",
   "description": "Basic table booking manager prototype",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node ./bin/www",
+    "dev:client": "react-scripts start",
+    "dev:server": "PORT=3001 nodemon ./bin/www",
+    "dev": "concurrently -n server,client -c 'yellow,magenta' npm:dev:server npm:dev:client",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -16,11 +19,23 @@
     "private": true
   },
   "devDependencies": {
+    "concurrently": "^5.1.0",
+    "cross-env": "^7.0.0",
     "gh-pages-deploy": "^0.4.2",
-    "node-sass": "^4.11.0"
+    "node-sass": "^4.11.0",
+    "nodemon": "^2.0.2"
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "^4.17.1",
+    "express-ws": "^4.0.0",
+    "http-proxy-middleware": "^1.0.0",
+    "lodash": "^4.17.15",
+    "morgan": "~1.9.1",
+    "nedb": "^1.8.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.5",
