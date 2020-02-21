@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev:client": "react-scripts start",
-    "dev:server": "PORT=3001 NODE_ENV=development nodemon --inspect ./bin/www",
+    "dev:server": "cross-env PORT=3001 NODE_ENV=development nodemon --inspect ./bin/www",
     "dev": "concurrently -n server,client -c 'yellow,magenta' npm:dev:server npm:dev:client",
     "build": "react-scripts build",
     "test": "react-scripts test",
