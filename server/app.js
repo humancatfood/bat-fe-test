@@ -9,6 +9,12 @@ const logger = require('morgan');
 const info = require('./info');
 const websocketServer = require('./ws');
 
+const { version } = require('./../package.json');
+
+
+
+console.log('version: ', version);
+console.log('NODE_ENV:', process.env.NODE_ENV);
 
 
 
