@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App renders as expected 1`] = `
+<div>
+  <div
+    class="layout"
+  >
+    <header
+      class="layout__header"
+    >
+      <img
+        alt="Bookatable by Michelin"
+        class="header__img"
+        src="bookatable-by-michelin-logo.svg"
+      />
+    </header>
+    <main
+      class="layout__body"
+    >
+      <section
+        class="table-view"
+      >
+        <label
+          class="table-view__header"
+        >
+          <h2
+            class="bui-app-intro"
+          >
+            Bookings for 
+          </h2>
+        </label>
+        <div
+          class="table-view__body"
+        >
+          <p>
+            Sorry, no bookings available for the selected day
+          </p>
+        </div>
+      </section>
+      <section
+        class="details-view"
+      />
+    </main>
+  </div>
+</div>
+`;

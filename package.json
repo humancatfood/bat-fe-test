@@ -20,6 +20,7 @@
     "private": true
   },
   "devDependencies": {
+    "@testing-library/react": "^9.4.1",
     "concurrently": "^5.1.0",
     "cross-env": "^7.0.0",
     "gh-pages-deploy": "^0.4.2",

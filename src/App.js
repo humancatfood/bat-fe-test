@@ -1,8 +1,10 @@
 /* Feel free to edit */
 import React, { Component } from 'react';
+import { Provider as ReduxProvider } from 'react-redux';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
+import configureStore from './data/store';
 import { loadLatestBookings } from './data/actions';
 
 import Header from './components/Header';
@@ -13,7 +15,7 @@ import BookingDetailView from './components/BookingDetailView';
 
 class App extends Component {
 
-  componentWillMount ()
+  componentDidMount ()
   {
     this.props.loadLatestBookings();
   }
@@ -41,4 +43,12 @@ const mapDispatchToProps = {
   loadLatestBookings,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
+
+const ProvidedApp = () => (
+  <ReduxProvider store={ configureStore() }>
+    <ConnectedApp />
+  </ReduxProvider>
+);
+
+export default ProvidedApp;
