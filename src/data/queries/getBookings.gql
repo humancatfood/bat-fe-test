@@ -1,0 +1,7 @@
+query getBookings($day: String!) {
+  bookings(day: $day) {
+    id
+    name
+    partySize
+  }
+}

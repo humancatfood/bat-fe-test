@@ -1,6 +1,8 @@
 type Booking {
   id: ID
   name: String!
+
+  # TODO: combine date and time into a singel field with some custom type 'Date' or something
   date: String!
   time: String!
   partySize: Int!

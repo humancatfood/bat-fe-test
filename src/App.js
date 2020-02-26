@@ -4,6 +4,8 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
+import { Provider as GraphQLProvider, hooks as dataHooks } from './data';
+
 import configureStore from './data/store';
 import { loadLatestBookings } from './data/actions';
 
@@ -12,6 +14,15 @@ import BookingsTableView from './components/BookingsTableView';
 import BookingDetailView from './components/BookingDetailView';
 
 
+
+const GraphQLTest = () => {
+
+  const res = dataHooks.useBookings('tomorrow');
+
+  console.log('res:', res);
+
+  return null;
+};
 
 class App extends Component {
 
@@ -24,6 +35,7 @@ class App extends Component {
   {
     return (
       <div className="layout">
+        <GraphQLTest />
         <Header className="layout__header"/>
         <main className={ classnames('layout__body', {'has-selected': this.props.hasSelected}) }>
           <BookingsTableView />
@@ -46,9 +58,11 @@ const mapDispatchToProps = {
 const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
 
 const ProvidedApp = () => (
-  <ReduxProvider store={ configureStore() }>
-    <ConnectedApp />
-  </ReduxProvider>
+  <GraphQLProvider>
+    <ReduxProvider store={ configureStore() }>
+      <ConnectedApp />
+    </ReduxProvider>
+  </GraphQLProvider>
 );
 
 export default ProvidedApp;
