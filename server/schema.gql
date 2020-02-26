@@ -1,0 +1,30 @@
+type Booking {
+  id: ID
+  name: String!
+  date: String!
+  time: String!
+  partySize: Int!
+  seated: Boolean
+  cancelled: Boolean
+  notes: String
+}
+
+input BookingInput {
+  name: String!
+  date: String!
+  time: String!
+  partySize: Int!
+  notes: String
+}
+
+type Query {
+  bookings(day: String!): [Booking]
+}
+
+type Mutation {
+  newBooking(booking: BookingInput!): Booking
+}
+
+type Subscription {
+  bookings(day: String!): [Booking]
+}

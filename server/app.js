@@ -1,37 +1,54 @@
-const path = require('path');
+const { resolve, join } = require('path');
+const { readFileSync } = require('fs');
 
 const express = require('express');
-const expressWs = require("express-ws");
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+const { GraphQLServer, PubSub } = require('graphql-yoga');
+
+const createDB = require('./db');
+const resolvers = require('./resolvers');
+const typeDefs = readFileSync(resolve(__dirname, './schema.gql'), 'utf8');
 
 const info = require('./info');
-const websocketServer = require('./ws');
 
 const { version } = require('./../package.json');
-
-
 
 console.log('version: ', version);
 console.log('NODE_ENV:', process.env.NODE_ENV);
 
 
 
-const app = express();
-expressWs(app);
+const server = new GraphQLServer({
+  typeDefs,
+  resolvers,
+  context: {
+    db: createDB(),
+    pubsub: new PubSub(),
+  },
+});
 
+
+const app = server.express;
+
+
+app.use(cors('http://localhost:3000'));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-
-app.ws("/ws", websocketServer);
-
 app.use('/info', info);
 
-app.use(express.static(path.join(__dirname, '..' ,'build')));
+app.use(express.static(join(__dirname, '..' ,'build')));
 
 
-module.exports = app;
+
+module.exports.startServer = (options, onStart) => server.start({
+  endpoint: '/graphql',
+  subscriptions: '/graphql',
+  playground: '/graphql',
+  ...options,
+}, onStart);

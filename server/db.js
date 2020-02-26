@@ -1,10 +1,10 @@
-const Datastore = require('nedb');
+const DataStore = require('nedb');
 
 
 
 module.exports = ( filename='.data/datafile') => {
 
-  const db = new Datastore({ filename, autoload: true });
+  const db = new DataStore({ filename, autoload: true });
 
   addFixtures(db);
 

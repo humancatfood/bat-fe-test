@@ -12,6 +12,7 @@
     "eject": "react-scripts eject",
     "deploy": "STATIC_PATH=/bat-fe-test/ gh-pages-deploy"
   },
+  "proxy": "http://localhost:3001",
   "keywords": [],
   "author": "",
   "license": "MIT",
@@ -30,9 +31,7 @@
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
-    "express": "^4.17.1",
-    "express-ws": "^4.0.0",
-    "http-proxy-middleware": "^1.0.0",
+    "graphql-yoga": "^1.18.3",
     "lodash": "^4.17.15",
     "morgan": "~1.9.1",
     "nedb": "^1.8.0",
