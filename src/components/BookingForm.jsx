@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 
-import { selectBooking, updateBooking } from './../data/actions';
+import { updateBooking } from './../data/actions';
 
 
 
@@ -26,7 +26,8 @@ class BookingForm extends React.Component
 
   componentWillReceiveProps (nextProps)
   {
-    if (nextProps.booking.id !== this.props.booking.id)
+
+    if (nextProps.booking && this.props.booking && nextProps.booking.id !== this.props.booking.id)
     {
       this.setState({
         dirty: false,
@@ -57,13 +58,13 @@ class BookingForm extends React.Component
   {
     event.preventDefault();
 
-    const { updateBooking, selectBooking } = this.props;
+    const { updateBooking, selectBid } = this.props;
     this.setState({
       dirty: false,
     });
 
     updateBooking(this._stateToProps(this.state))
-      .then(selectBooking(null));
+      .then(selectBid(null));
 
   }
 
@@ -89,7 +90,7 @@ class BookingForm extends React.Component
 
   render ()
   {
-    const { className, selectBooking } = this.props;
+    const { className, selectBid } = this.props;
     const { dirty, title, firstName, lastName, time, partySize, status, notes} = this.state;
 
     return (
@@ -101,7 +102,7 @@ class BookingForm extends React.Component
 
         <header className="bookings-form__header details-view__heading">
           <h2>Booking update:</h2>
-          <button onClick={ () => selectBooking(undefined) } className="close-button" title="close" dangerouslySetInnerHTML={{ __html: '&#x02A2F;' }}></button>
+          <button onClick={ () => selectBid(null) } className="close-button" title="close" dangerouslySetInnerHTML={{ __html: '&#x02A2F;' }}></button>
         </header>
 
         <main className="bookings-form__body">
@@ -154,12 +155,11 @@ class BookingForm extends React.Component
   }
 }
 
-const mapStateToProps = state => ({
-  booking: state.bookings.byId[state.ui.selectedBookingId],
+const mapStateToProps = (state, props) => ({
+  booking: state.bookings.byId[props.bid],
 });
 
 const mapDispatchToProps = {
-  selectBooking,
   updateBooking,
 };
 

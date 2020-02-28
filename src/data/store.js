@@ -15,7 +15,10 @@ export default () => {
   if (process.env.NODE_ENV === 'development')
   {
     window.console.info("creating logger");
-    middleWare.push(createLogger());
+    middleWare.push(createLogger({
+      diff: true,
+      collapsed: true,
+    }));
   }
 
   return createStore(

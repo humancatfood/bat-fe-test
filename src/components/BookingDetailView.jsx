@@ -1,43 +1,32 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-import { selectBooking } from './../data/actions';
+import { useBookingSelector } from './../data';
 
 import BookingForm from './BookingForm';
 
 
 
-class BookingDetailView extends React.Component
-{
-  render ()
-  {
-    const { booking, selectBooking } = this.props;
+const BookingDetailView = () => {
 
-    return (
-      <section
-        className="details-view"
-        onClick={ () => selectBooking(undefined) }
-      >
-        {
-          booking && (
-            <BookingForm
-              className="details-view__body"
-              booking={ booking }
-            />
-          )
-        }
-      </section>
-    );
+  const [bid, selectBid] = useBookingSelector();
 
-  }
-}
+  return (
+    <section
+      className="details-view"
+      onClick={ () => selectBid(undefined) }
+    >
+      {
+        bid && (
+          <BookingForm
+            className="details-view__body"
+            bid={bid}
+            selectBid={selectBid}
+          />
+        )
+      }
+    </section>
+  );
 
-const mapStateToProps = state => ({
-  booking: state.bookings.byId[state.ui.selectedBookingId],
-});
-
-const mapDispatchToProps = {
-  selectBooking,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookingDetailView);
+export default BookingDetailView;

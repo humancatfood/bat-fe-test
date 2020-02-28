@@ -2,64 +2,61 @@ import React from 'react';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 
-import { selectBooking, sortBy } from './../data/actions';
+import { sortBy } from './../data/actions';
+
+import { useBookingSelector } from './../data';
 
 import TableHeader from './BookingsTableHeader';
 
 
 
-class BookingsTable extends React.Component
-{
-  render()
-  {
-    const { bookings, selectedBookingId, selectBooking, sortProp, sortOrder } = this.props;
+const BookingsTable = ({ bookings, sortProp, sortOrder, className='' }) => {
 
-    return (
-      <table className={ classnames('bookings-table', this.props.className) }>
-        <thead>
-          <tr>
-            <TableHeader value="lastName" label="Name" />
-            <TableHeader value="time" label="Time" />
-            <TableHeader value="partySize" label="Covers" />
-            <TableHeader value="seated" label="Seated" />
-          </tr>
-        </thead>
-        <tbody>
-          {
-            this._sortBookings(bookings, sortProp, sortOrder).map(booking => (
-              <tr key={ booking.id }
-                className={ classnames({
-                  seated: booking.seated,
-                  cancelled: booking.cancelled,
-                  selected: selectedBookingId === booking.id,
-                }) }
-                onClick={ () => selectBooking(booking) }>
-                <td>{ `${ booking.title } ${ booking.firstName } ${ booking.lastName }` }</td>
-                <td>{ booking.time }</td>
-                <td>{ booking.partySize }</td>
-                <td>{ booking.seated ? 'Y' : 'N' }</td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
-    );
-  }
+  const [bid, selectBid] = useBookingSelector();
 
-  _sortBookings (bookings, sortProp, sortOrder)
-  {
-    return bookings.sort((a, b) => (a[sortProp] > b[sortProp] ? 1 : -1)  * sortOrder);
-  }
+  return (
+    <table className={ classnames('bookings-table', className) }>
+      <thead>
+        <tr>
+          <TableHeader value="lastName" label="Name" />
+          <TableHeader value="time" label="Time" />
+          <TableHeader value="partySize" label="Covers" />
+          <TableHeader value="seated" label="Seated" />
+        </tr>
+      </thead>
+      <tbody>
+        {
+          _sortBookings(bookings, sortProp, sortOrder).map(booking => (
+            <tr key={ booking.id }
+              className={ classnames({
+                seated: booking.seated,
+                cancelled: booking.cancelled,
+                selected: bid === booking.id,
+              }) }
+              onClick={ () => selectBid(booking.id) }>
+              <td>{ `${ booking.title } ${ booking.firstName } ${ booking.lastName }` }</td>
+              <td>{ booking.time }</td>
+              <td>{ booking.partySize }</td>
+              <td>{ booking.seated ? 'Y' : 'N' }</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  );
+};
 
+function _sortBookings (bookings, sortProp, sortOrder) {
+  return bookings.sort((a, b) => (a[sortProp] > b[sortProp] ? 1 : -1 * sortOrder));
 }
 
-const mapStateToProps = state => {
+
+const mapStateToProps = (state, props) => {
   // TODO: refactor this. This component knows way too much about the store-layout
-  const { bookings: {byId={}, byDate={}}, ui: {selectedDate=null, sortProp, sortOrder}} = state;
-  const ids = byDate[selectedDate];
+  const { bookings: {byId={}, byDate={}}, ui: {sortProp, sortOrder}} = state;
+  const ids = byDate[props.date];
   return {
     bookings: ids && ids.map(id => byId[id]),
-    selectedBookingId: state.ui.selectedBookingId,
     sortProp,
     sortOrder,
   };
@@ -67,7 +64,6 @@ const mapStateToProps = state => {
 
 
 const mapDispatchToProps = {
-  selectBooking,
   sortBy,
 };
 

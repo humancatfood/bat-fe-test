@@ -1,4 +1,4 @@
-const bookings = [];  //TODO: get bookings from DB
+const bookings = []; //TODO: get bookings from DB
 const CHANNEL = 'CHANNEL';
 
 

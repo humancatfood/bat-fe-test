@@ -1,13 +1,18 @@
 /* Feel free to edit */
-import React, { Component } from 'react';
+import React from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
-import { connect } from 'react-redux';
 import classnames from 'classnames';
 
 import { Provider as GraphQLProvider, hooks as dataHooks } from './data';
 
+import { useBookingSelector } from './data';
+
 import configureStore from './data/store';
-import { loadLatestBookings } from './data/actions';
+
+import { Router, Route, Switch } from './components/Routing';
+
+import Overview from './views/Overview';
+import FourOhFour from './views/FourOhFour';
 
 import Header from './components/Header';
 import BookingsTableView from './components/BookingsTableView';
@@ -24,45 +29,45 @@ const GraphQLTest = () => {
   return null;
 };
 
-class App extends Component {
+const App = () => {
 
-  componentDidMount ()
-  {
-    this.props.loadLatestBookings();
-  }
+  const [bid] = useBookingSelector();
 
-  render ()
-  {
-    return (
-      <div className="layout">
-        <GraphQLTest />
-        <Header className="layout__header"/>
-        <main className={ classnames('layout__body', {'has-selected': this.props.hasSelected}) }>
-          <BookingsTableView />
-          <BookingDetailView />
-        </main>
-      </div>
-    );
-  }
-
-}
-
-const mapStateToProps = state => ({
-  hasSelected: !!state.ui.selectedBookingId,
-});
-
-const mapDispatchToProps = {
-  loadLatestBookings,
+  return (
+    <div className="layout">
+      <GraphQLTest />
+      <Header className="layout__header"/>
+      <main className={ classnames('layout__body', {'has-selected': !!bid}) }>
+        <Switch>
+          <Route path="/"exact component={Overview} />
+          <Route path="/:date(\d{4}-\d{2}-\d{2})" render={({ match }) => (
+              <>
+                <BookingsTableView date={match.params.date }/>
+                {
+                  bid && (
+                    <BookingDetailView bid={bid} />
+                  )
+                }
+              </>
+          )}>
+          </Route>
+          <Route component={FourOhFour} />
+        </Switch>
+      </main>
+    </div>
+  );
 };
 
-const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
+
 
 const ProvidedApp = () => (
-  <GraphQLProvider>
-    <ReduxProvider store={ configureStore() }>
-      <ConnectedApp />
-    </ReduxProvider>
-  </GraphQLProvider>
+  <Router>
+    <GraphQLProvider>
+      <ReduxProvider store={ configureStore() }>
+        <App />
+      </ReduxProvider>
+    </GraphQLProvider>
+  </Router>
 );
 
 export default ProvidedApp;

@@ -1,10 +1,7 @@
-import { getLatestBookings, getBookingsForDate, saveBooking, subscribe, unsubscribe } from './bookings-service';
+import { getBookingsForDate, saveBooking } from './bookings-service';
 
 
 export const ACTIONS = {
-  SELECT_DATE: 'SELECT_DATE',
-  SELECT_BOOKING: 'SELECT_BOOKING',
-
   SET_BUSY: 'SET_BUSY',
   SORT_BY: 'SORT_BY',
 
@@ -14,26 +11,10 @@ export const ACTIONS = {
 };
 
 
-export const selectBooking = booking => ({
-  type: ACTIONS.SELECT_BOOKING,
-  payload: {
-    booking,
-  },
-});
-
-
-export const setBusy = busy => ({
+export const setBusy = busy => () => ({
   type: ACTIONS.SET_BUSY,
   payload: {
     busy,
-  },
-});
-
-
-export const setDate = date => ({
-  type: ACTIONS.SELECT_DATE,
-  payload: {
-    date,
   },
 });
 
@@ -53,24 +34,6 @@ export const sortBy = sortProp => ({
     sortProp,
   },
 });
-
-
-export const loadLatestBookings = () => async dispatch => {
-  dispatch(setBusy(true));
-
-  try
-  {
-    const { date, bookings } = await getLatestBookings();
-    dispatch(receiveBookings(date, bookings));
-    dispatch(setDate(date));
-  }
-  catch (e)
-  {
-    console.error(e);
-  }
-  dispatch(setBusy(false));
-
-};
 
 
 export const updateBooking = newBooking => async dispatch => {
@@ -110,25 +73,10 @@ export const selectDate = date => async dispatch => {
     {
       dispatch(receiveBookings(date, []));
     }
-    dispatch(setDate(date));
   }
   catch (e) {
     console.error(e);
   }
   dispatch(setBusy(false));
 
-};
-
-
-export const subscribeToBookings = () => dispatch => {
-  subscribe(bookings => dispatch({
-    type: ACTIONS.RECEIVE_BOOKINGS, payload: bookings,
-  }));
-};
-
-
-export const unsubscribeFromBookings = () => dispatch => {
-  unsubscribe(err => {
-
-  });
 };

@@ -9,26 +9,26 @@ To run:
 
 _OR_
 
-Go to 
+Go to
 
 https://humancatfood.github.io/bat-fe-test/
 
 ## Requirements
 
 
-> * See which diners have already arrived 
+> * See which diners have already arrived
 > * Tell which diners have yet to arrive
 > * Quickly see which diners have cancelled their bookings
 
-Yes, you can sort the bookings table by status to see all seated / unseated / cancelled people grouped together. 
+Yes, you can sort the bookings table by status to see all seated / unseated / cancelled people grouped together.
 
 (A better solution might be a proper filter.)
-  
+
 > * Tell quickly which booking to expect to arrive next
 
-Yes, you can sort the bookings table by time. 
+Yes, you can sort the bookings table by time.
 
-(A better solution might allow filtering out bookings that are in the past so the next  expected on is always on top.) 
+(A better solution might allow filtering out bookings that are in the past so the next expected on is always on top.)
 
 > * Change the status of a booking
 

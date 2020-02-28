@@ -27,17 +27,17 @@ Based on the wireframe designs provided, build the page using HTML, CSS (feel fr
 **Initial view**
 
 
-![Initial view narrow viewport](wireframe_initial-view_mobile.png)  
+![Initial view narrow viewport](wireframe_initial-view_mobile.png
 
-![Initial view wide viewport](wireframe_initial-view_desktop.png)  
+![Initial view wide viewport](wireframe_initial-view_desktop.png)
 
 **Action Panel**
 
-![Action panel narrow viewport](wireframe_action-panel_mobile.png)  
+![Action panel narrow viewport](wireframe_action-panel_mobile.png)
 
-![Action panel wide viewport](wireframe_action-panel_desktop.png)  
+![Action panel wide viewport](wireframe_action-panel_desktop.png)
 
---------------------------------- 
+---------------------------------
 
 ## User Story
 
@@ -80,7 +80,7 @@ npm run build
 
 ### Missing Features
 
-This template is purposefully simple, providing a basic configuration for a development environment using React with Hot Loader. 
+This template is purposefully simple, providing a basic configuration for a development environment using React with Hot Loader.
 
 You may include additional features, task runners, development tools and modules as you see fit, e.g. testing frameworks, routers, CSS processors etc. with the following exceptions:
 
@@ -109,7 +109,7 @@ Because the WebStorm IDE uses "safe writes" by default, Webpack's file-watcher w
 1. Update the main README file in the root directory (not this doc) with any required instructions e.g. for running tests. Please include feedback on what you thought about the test, any parts you were not able to complete and features you would like to add.
 2. Remove any files created as part of the installation or build process e.g. `node_modules` and debug output
 3. Send your completed project to your recruitment contact using one of these methods:
-    - Package up the project in a zip archive 
+    - Package up the project in a zip archive
     - Post to a publicly available git repository and provide access details
 
 ### Thank you

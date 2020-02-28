@@ -17,29 +17,9 @@ exports[`App renders as expected 1`] = `
     <main
       class="layout__body"
     >
-      <section
-        class="table-view"
-      >
-        <label
-          class="table-view__header"
-        >
-          <h2
-            class="bui-app-intro"
-          >
-            Bookings for 
-          </h2>
-        </label>
-        <div
-          class="table-view__body"
-        >
-          <p>
-            Sorry, no bookings available for the selected day
-          </p>
-        </div>
-      </section>
-      <section
-        class="details-view"
-      />
+      <h1>
+        Overview
+      </h1>
     </main>
   </div>
 </div>
