@@ -1,0 +1,12 @@
+query getDailyBookings($day: String!) {
+  bookings(day: $day) {
+    _id
+    title
+    firstName
+    lastName
+    time
+    partySize
+    seated
+    cancelled
+  }
+}

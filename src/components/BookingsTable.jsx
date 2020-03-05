@@ -27,13 +27,13 @@ const BookingsTable = ({ bookings, sortProp, sortOrder, className='' }) => {
       <tbody>
         {
           _sortBookings(bookings, sortProp, sortOrder).map(booking => (
-            <tr key={ booking.id }
+            <tr key={ booking._id }
               className={ classnames({
                 seated: booking.seated,
                 cancelled: booking.cancelled,
-                selected: bid === booking.id,
+                selected: bid === booking._id,
               }) }
-              onClick={ () => selectBid(booking.id) }>
+              onClick={ () => selectBid(booking._id) }>
               <td>{ `${ booking.title } ${ booking.firstName } ${ booking.lastName }` }</td>
               <td>{ booking.time }</td>
               <td>{ booking.partySize }</td>
@@ -51,16 +51,10 @@ function _sortBookings (bookings, sortProp, sortOrder) {
 }
 
 
-const mapStateToProps = (state, props) => {
-  // TODO: refactor this. This component knows way too much about the store-layout
-  const { bookings: {byId={}, byDate={}}, ui: {sortProp, sortOrder}} = state;
-  const ids = byDate[props.date];
-  return {
-    bookings: ids && ids.map(id => byId[id]),
-    sortProp,
-    sortOrder,
-  };
-};
+const mapStateToProps = ({ ui: {sortProp, sortOrder}}) => ({
+  sortProp,
+  sortOrder,
+});
 
 
 const mapDispatchToProps = {

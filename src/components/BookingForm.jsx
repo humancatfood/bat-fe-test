@@ -1,8 +1,5 @@
 import React from 'react';
 import classnames from 'classnames';
-import { connect } from 'react-redux';
-
-import { updateBooking } from './../data/actions';
 
 
 
@@ -27,7 +24,7 @@ class BookingForm extends React.Component
   componentWillReceiveProps (nextProps)
   {
 
-    if (nextProps.booking && this.props.booking && nextProps.booking.id !== this.props.booking.id)
+    if (nextProps.booking && this.props.booking && nextProps.booking._id !== this.props.booking._id)
     {
       this.setState({
         dirty: false,
@@ -58,13 +55,12 @@ class BookingForm extends React.Component
   {
     event.preventDefault();
 
-    const { updateBooking, selectBid } = this.props;
+    const { onSubmit } = this.props;
     this.setState({
       dirty: false,
     });
 
-    updateBooking(this._stateToProps(this.state))
-      .then(selectBid(null));
+    onSubmit(this._stateToProps(this.state));
 
   }
 
@@ -90,7 +86,7 @@ class BookingForm extends React.Component
 
   render ()
   {
-    const { className, selectBid } = this.props;
+    const { className, onCancel } = this.props;
     const { dirty, title, firstName, lastName, time, partySize, status, notes} = this.state;
 
     return (
@@ -102,7 +98,12 @@ class BookingForm extends React.Component
 
         <header className="bookings-form__header details-view__heading">
           <h2>Booking update:</h2>
-          <button onClick={ () => selectBid(null) } className="close-button" title="close" dangerouslySetInnerHTML={{ __html: '&#x02A2F;' }}></button>
+          <button
+            onClick={onCancel }
+            className="close-button"
+            title="close"
+            dangerouslySetInnerHTML={{ __html: '&#x02A2F;' }}
+          />
         </header>
 
         <main className="bookings-form__body">
@@ -155,12 +156,5 @@ class BookingForm extends React.Component
   }
 }
 
-const mapStateToProps = (state, props) => ({
-  booking: state.bookings.byId[props.bid],
-});
 
-const mapDispatchToProps = {
-  updateBooking,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(BookingForm);
+export default BookingForm;

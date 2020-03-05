@@ -18,7 +18,7 @@ const _fetchData = async () => {
         ...day,
         bookings: day.bookings.map(booking => ({
           ...booking,
-          id: v4(),
+          _id: v4(),
         })),
       }))
       .sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -33,7 +33,7 @@ const _saveData = async (newBooking) => {
   const data = await _fetchData();
 
   return data.some(({ bookings }) => {
-    const oldBooking = bookings.find(booking => booking.id === newBooking.id);
+    const oldBooking = bookings.find(booking => booking._id === newBooking._id);
     if (oldBooking)
     {
       Object.assign(oldBooking, newBooking);

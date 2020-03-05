@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import { useHistory, useLocation } from '../components/Routing';
 import queries from './queries';
@@ -7,16 +7,52 @@ export { default as Provider } from './Provider';
 
 
 
-export const hooks = {
-  useBookings: day => useQuery(
-    queries.getBookings,
+// TODO: factor these hooks into modules
+
+export const useDailyBookings = day => {
+  const { data, loading, error } = useQuery(
+    queries.getDailyBookings,
     { variables: { day } },
-  ),
+  );
+  return {
+    error,
+    loading,
+    bookings: data && data.bookings,
+  };
 };
 
 
+export const useBookingById = _id => {
+  const { data, loading, error } = useQuery(
+    queries.getBookingById,
+    { variables: { _id } },
+  );
+  return {
+    error,
+    loading,
+    booking: data && data.booking,
+  };
+};
 
 
+export const useUpdateBooking = () => {
+
+  const [update, { data, loading, error }] = useMutation(queries.updateBooking);
+
+  return [
+    (_id, booking) => update({
+      variables: {
+        _id, booking,
+      },
+    }),
+    {
+      error,
+      loading,
+      booking: data && data.booking,
+    },
+  ];
+
+};
 
 
 export const useBookingSelector = () => {

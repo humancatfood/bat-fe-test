@@ -1,0 +1,12 @@
+mutation updateBooking($_id: ID!, $booking: BookingInput!) {
+  updateBooking(_id: $_id, booking: $booking) {
+    _id
+    title
+    firstName
+    lastName
+    time
+    partySize
+    seated
+    cancelled
+  }
+}

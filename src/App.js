@@ -3,7 +3,7 @@ import React from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 import classnames from 'classnames';
 
-import { Provider as GraphQLProvider, hooks as dataHooks } from './data';
+import { Provider as GraphQLProvider } from './data';
 
 import { useBookingSelector } from './data';
 
@@ -15,19 +15,10 @@ import Overview from './views/Overview';
 import FourOhFour from './views/FourOhFour';
 
 import Header from './components/Header';
-import BookingsTableView from './components/BookingsTableView';
-import BookingDetailView from './components/BookingDetailView';
+import DailyBookingsView from 'views/DailyBookings';
+import BookingDetailView from 'views/BookingDetail';
 
 
-
-const GraphQLTest = () => {
-
-  const res = dataHooks.useBookings('tomorrow');
-
-  console.log('res:', res);
-
-  return null;
-};
 
 const App = () => {
 
@@ -35,20 +26,20 @@ const App = () => {
 
   return (
     <div className="layout">
-      <GraphQLTest />
+      {/* <GraphQLTest /> */}
       <Header className="layout__header"/>
       <main className={ classnames('layout__body', {'has-selected': !!bid}) }>
         <Switch>
           <Route path="/"exact component={Overview} />
           <Route path="/:date(\d{4}-\d{2}-\d{2})" render={({ match }) => (
-              <>
-                <BookingsTableView date={match.params.date }/>
-                {
-                  bid && (
-                    <BookingDetailView bid={bid} />
-                  )
-                }
-              </>
+            <>
+              <DailyBookingsView date={match.params.date }/>
+              {
+                bid && (
+                  <BookingDetailView bid={bid} />
+                )
+              }
+            </>
           )}>
           </Route>
           <Route component={FourOhFour} />

@@ -24,7 +24,12 @@ function addFixtures (db) {
       console.error("There's a problem with the database: ", err);
     } else if (!count) {
 
-      const initialData = require('bookings.json');
+      const initialData = require('./../bookings.json').flatMap(({ date, bookings }) => bookings.map(booking => ({
+        ...booking,
+        date,
+        name: `${booking.title} ${booking.firstName} ${booking.lastName}`,
+      })));
+
       console.info('initialData:', initialData);
 
       db.insert(initialData, (err, result) => {

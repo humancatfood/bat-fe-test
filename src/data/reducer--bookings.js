@@ -17,12 +17,12 @@ export default (state=bookingsDefaultState, action) => {
       return {
         ...state,
         byDate: {
-          [date]: bookings.map(booking => booking.id),
+          [date]: bookings.map(booking => booking._id),
         },
         byId: {
           ...state.byId,
           ...bookings.reduce((result, booking) => {
-            result[booking.id] = booking;
+            result[booking._id] = booking;
             return result;
           }, {}),
         },
@@ -35,7 +35,7 @@ export default (state=bookingsDefaultState, action) => {
         ...state,
         byId: {
           ...state.byId,
-          [booking.id]: booking,
+          [booking._id]: booking,
         },
       };
     }
