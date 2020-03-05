@@ -25,8 +25,8 @@ const BookingDetailView = () => {
 
 
   const onSubmit = args => {
-    const { title, firstName, lastName, time, partySize, seated, cancelled } = args;
-    update(bid, { title, firstName, lastName, time, partySize, seated, cancelled, date });
+    const { title, firstName, lastName, time, partySize, seated, cancelled, notes } = args;
+    update(bid, { title, firstName, lastName, time, partySize, seated, cancelled, date, notes });
   };
 
 

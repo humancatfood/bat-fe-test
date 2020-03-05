@@ -8,5 +8,6 @@ query getBookingById($_id: ID!) {
     partySize
     seated
     cancelled
+    notes
   }
 }
