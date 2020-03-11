@@ -4,15 +4,15 @@ const CHANNEL = 'CHANNEL';
 
 module.exports = {
   Query: {
-    bookings: (parent, { day }, { db }) => new Promise((resolve, reject) => {
+    bookings: (parent, { date }, { db }) => new Promise((resolve, reject) => {
 
-      db.find({ date: day }, (error, data) => {
         if (error) {
           reject(error);
         } else {
           resolve(data);
         }
       });
+          db.find({ date }, (error, data) => {
 
     }),
     booking: (parent, { _id }, { db }) => new Promise((resolve, reject) => {

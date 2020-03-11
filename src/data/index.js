@@ -9,10 +9,10 @@ export { default as Provider } from './Provider';
 
 // TODO: factor these hooks into modules
 
-export const useDailyBookings = day => {
+export const useDailyBookings = date => {
   const { data, loading, error } = useQuery(
     queries.getDailyBookings,
-    { variables: { day } },
+    { variables: { date } },
   );
   return {
     error,

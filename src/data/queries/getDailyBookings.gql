@@ -1,5 +1,5 @@
-query getDailyBookings($day: String!) {
-  bookings(day: $day) {
+query getDailyBookings($date: String!) {
+  bookings(date: $date) {
     _id
     title
     firstName

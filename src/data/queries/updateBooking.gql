@@ -4,6 +4,7 @@ mutation updateBooking($_id: ID!, $booking: BookingInput!) {
     title
     firstName
     lastName
+    date
     time
     partySize
     seated

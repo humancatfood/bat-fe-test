@@ -28,7 +28,7 @@ input BookingInput {
 }
 
 type Query {
-  bookings(day: String!): [Booking!]
+  bookings(date: String!): [Booking!]
   booking(_id: ID!): Booking
 }
 
@@ -38,5 +38,5 @@ type Mutation {
 }
 
 type Subscription {
-  bookings(day: String!): [Booking]
+  bookings(date: String!): [Booking]
 }
