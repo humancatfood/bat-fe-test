@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import { useHistory, useLocation } from '../components/Routing';
-import queries from './queries';
+import * as queries from './queries';
 
 export { default as Provider } from './Provider';
 
@@ -37,7 +37,10 @@ export const useBookingById = _id => {
 
 export const useUpdateBooking = () => {
 
-  const [update, { data, loading, error }] = useMutation(queries.updateBooking);
+  const [update, { data, loading, error, ...rest }] = useMutation(queries.updateBooking);
+
+  console.log('update:', data, loading, error, rest);
+  console.log(error);
 
   return [
     (_id, booking) => update({
