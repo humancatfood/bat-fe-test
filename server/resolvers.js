@@ -81,27 +81,21 @@ module.exports = {
 
     }),
 
-    newBooking: (root, { booking }, { pubsub }) => {
+    newBooking: (root, { booking }, { db/* , pubsub */ }) => new Promise((resolve, reject) => {
 
-      // TODO: implement this properly
-      const { name, date, time, partySize, notes='' } = booking;
-
-      const newBooking = {
-        _id: bookings.length + 1,
-        name,
-        date,
-        time,
-        partySize,
-        seated: false,
-        notes,
-        cancelled: false,
-      };
-
-      bookings.push(newBooking);
-      pubsub.publish(CHANNEL, { bookings });
-
-      return newBooking;
-    },
+      bookingInputSchema.validate(booking, { abortEarly: false })
+        .then(booking => {
+          db.insert(booking, (error, result) => {
+          // pubsub.publish(CHANNEL, { bookings });
+            if (error) {
+              reject(error);
+            } else {
+              resolve(result);
+            }
+          });
+        })
+        .catch(reject);
+    }),
   },
 
   // TODO: implement subscriptions
