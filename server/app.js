@@ -10,6 +10,7 @@ const { GraphQLServer, PubSub } = require('graphql-yoga');
 
 const createDB = require('./db');
 const resolvers = require('./resolvers');
+const { formatError } = require('./middleware');
 const typeDefs = readFileSync(resolve(__dirname, './schema.gql'), 'utf8');
 
 const info = require('./info');
@@ -50,5 +51,6 @@ module.exports.startServer = (options, onStart) => server.start({
   endpoint: '/graphql',
   subscriptions: '/graphql',
   playground: '/graphql',
+  formatError,
   ...options,
 }, onStart);

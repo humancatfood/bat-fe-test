@@ -5,14 +5,14 @@ const yup = require('yup');
 const bookings = []; //TODO: get bookings from DB
 const CHANNEL = 'CHANNEL';
 
-const dateInputSchema = yup.string().matches(/^\d\d\d\d-\d\d-\d\d$/);
+const dateInputSchema = yup.string().matches(/^\d\d\d\d-\d\d-\d\d$/, 'bad date format, expected `yyyy-mm-dd`');
 
 const bookingInputSchema = yup.object().shape({
   title: yup.string().required().oneOf(['Mr', 'Ms', 'Miss', 'Mrs']),
   firstName: yup.string().trim().max(20).required(),
   lastName: yup.string().trim().max(20).required(),
   date: dateInputSchema.required(),
-  time: yup.string().required().matches(/^\d\d(:|.)\d\d$/),
+  time: yup.string().required().matches(/^\d\d(:|.)\d\d$/, 'bad time format, expected `hh:mm`'),
   partySize: yup.number().required(),
   notes: yup.string().trim().notRequired().max(140).ensure(),
   seated: yup.boolean().notRequired().default(false),
@@ -20,7 +20,6 @@ const bookingInputSchema = yup.object().shape({
 });
 
 const idInputSchema = yup.string().required();
-
 
 
 module.exports = {
