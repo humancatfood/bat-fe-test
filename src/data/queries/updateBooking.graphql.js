@@ -12,6 +12,7 @@ export default gql`
       date
       time
       partySize
+      notes
       seated
       cancelled
     }
