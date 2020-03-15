@@ -2,11 +2,13 @@ const DataStore = require('nedb');
 
 
 
-module.exports = ( filename='.data/datafile') => {
+module.exports = ( filename='.data/datafile', shouldAddFixtures ) => {
 
   const db = new DataStore({ filename, autoload: true });
 
-  addFixtures(db);
+  if (shouldAddFixtures) {
+    addFixtures(db);
+  }
 
   db.ensureIndex({
     fieldName: 'date',

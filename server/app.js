@@ -26,7 +26,7 @@ const server = new GraphQLServer({
   typeDefs,
   resolvers,
   context: {
-    db: createDB(),
+    db: createDB(process.env.DATA_FILE, process.env.ADD_FIXTURES),
     pubsub: new PubSub(),
   },
 });
