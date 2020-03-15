@@ -23,7 +23,7 @@
     "strict": 0,
     "no-unused-vars": [
       "error",
-      { "varsIgnorePattern": "_ignore_me_?[1-9]?" }
+      { "varsIgnorePattern": "_+" }
     ],
     "indent": [
       "warn",

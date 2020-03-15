@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { useBookingSelector, useBookingById, useUpdateBooking } from 'data';
+import { useSelectedBid, useBookingById, useUpdateBooking } from 'data';
 
 import { useParams } from 'components/Routing';
 import BookingForm from 'components/BookingForm';
@@ -11,7 +11,7 @@ const BookingDetailView = () => {
 
   const { date } = useParams();
 
-  const [ bid, selectBid ] = useBookingSelector();
+  const [ bid, selectBid ] = useSelectedBid();
   const { booking, loading, error } = useBookingById(bid);
 
   const [ update ] = useUpdateBooking();
@@ -48,7 +48,6 @@ const BookingDetailView = () => {
             booking={booking}
             onSubmit={onSubmit}
             onCancel={onCancel}
-            selectBid={selectBid}
           />
         )
       }

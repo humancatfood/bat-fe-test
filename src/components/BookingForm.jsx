@@ -78,6 +78,8 @@ class BookingForm extends React.Component
   {
     return {
       ...state,
+      title: state.title || 'Mr',
+      partySize: Number(state.partySize),
       seated: state.status === 'yes',
       cancelled: state.status === 'cancelled',
       time: state.time.replace(':', '.'),

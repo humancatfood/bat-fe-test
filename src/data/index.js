@@ -35,12 +35,31 @@ export const useBookingById = _id => {
 };
 
 
+export const useCreateBooking = () => {
+
+  const [create, { data, loading, error /* ...rest */ }] = useMutation(queries.newBooking);
+
+  // console.log('new:', data, loading, error, rest);
+
+  return [
+    booking => create({
+      variables: {
+        booking,
+      },
+    }),
+    {
+      error,
+      loading,
+      booking: data && data.booking,
+    },
+  ];
+
+};
+
+
 export const useUpdateBooking = () => {
 
-  const [update, { data, loading, error, ...rest }] = useMutation(queries.updateBooking);
-
-  console.log('update:', data, loading, error, rest);
-  console.log(error);
+  const [update, { data, loading, error }] = useMutation(queries.updateBooking);
 
   return [
     (_id, booking) => update({
@@ -58,24 +77,28 @@ export const useUpdateBooking = () => {
 };
 
 
-export const useBookingSelector = () => {
+export const useURLParameter = (key, { replaces }={}) => {
 
   const location = useLocation();
   const history = useHistory();
   const params = new URLSearchParams(location.search);
 
-  const bid = params.get('bid');
+  const parameter = params.get(key);
   return [
-    bid,
-    bid => {
-      if (bid) {
-        params.set('bid', bid);
+    parameter === '' ? true : parameter,
+    parameter => {
+      if (parameter) {
+        params.set(key, parameter === true ? '' : parameter);
+        params.delete(replaces);
       } else {
-        params.delete('bid');
+        params.delete(key);
       }
       location.search = params.toString();
       history.push(location);
     },
   ];
-
 };
+
+export const useSelectedBid = () => useURLParameter('bid', { replaces: 'new' });
+
+export const useNewBooking = () => useURLParameter('new', { replaces: 'bid' });
