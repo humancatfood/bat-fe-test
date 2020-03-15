@@ -1,5 +1,4 @@
-const { resolve, join } = require('path');
-const { readFileSync } = require('fs');
+const { join } = require('path');
 
 const express = require('express');
 const cors = require('cors');
@@ -11,7 +10,7 @@ const { GraphQLServer, PubSub } = require('graphql-yoga');
 const createDB = require('./db');
 const resolvers = require('./resolvers');
 const { formatError } = require('./middleware');
-const typeDefs = readFileSync(resolve(__dirname, './schema.gql'), 'utf8');
+const typeDefs = require('./schema.graphql');
 
 const info = require('./info');
 
