@@ -30,10 +30,7 @@ function addFixtures (db) {
         name: `${booking.title} ${booking.firstName} ${booking.lastName}`,
       })));
 
-      console.info('initialData:', initialData);
-
       db.insert(initialData, (err, result) => {
-        console.info('after insert:', err, result);
         if (err) {
           console.error("There's a problem with the database: ", err);
         } else if (result) {
