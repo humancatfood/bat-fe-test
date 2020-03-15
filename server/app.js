@@ -16,8 +16,8 @@ const info = require('./info');
 
 const { version } = require('./../package.json');
 
-console.log('version: ', version);
-console.log('NODE_ENV:', process.env.NODE_ENV);
+global.console.log('version: ', version);
+global.console.log('NODE_ENV:', process.env.NODE_ENV);
 
 
 

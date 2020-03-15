@@ -23,7 +23,7 @@ function addFixtures (db) {
 
   db.count({}, function (err, count) {
     if(err) {
-      console.error("There's a problem with the database: ", err);
+      global.console.error("There's a problem with the database: ", err);
     } else if (!count) {
 
       const initialData = require('./../bookings.json').flatMap(({ date, bookings }) => bookings.map(booking => ({
@@ -34,9 +34,9 @@ function addFixtures (db) {
 
       db.insert(initialData, (err, result) => {
         if (err) {
-          console.error("There's a problem with the database: ", err);
+          global.console.error("There's a problem with the database: ", err);
         } else if (result) {
-          console.info("Default bookings inserted in the database");
+          global.console.info("Default bookings inserted in the database");
         }
       });
     }
