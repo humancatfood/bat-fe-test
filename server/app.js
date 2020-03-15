@@ -41,10 +41,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/info', info);
-
 app.use(express.static(join(__dirname, '..' ,'build')));
 
+app.use('/info', info);
+
+app.use('*', (request, response, next) => {
+  if (request.originalUrl === '/graphql') {
+    next();
+  } else {
+    response.sendFile(join(__dirname, '..', 'build', 'index.html'));
+  }
+});
 
 
 module.exports.startServer = (options, onStart) => server.start({
