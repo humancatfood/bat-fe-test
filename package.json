@@ -9,7 +9,7 @@
     "dev:server": "env-cmd -f .env.development  cross-env PORT=3001 NODE_ENV=development nodemon --inspect ./bin/www",
     "dev": "concurrently -n server,client -c 'yellow,magenta' npm:dev:server npm:dev:client",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cypress open",
     "eject": "react-scripts eject",
     "deploy": "STATIC_PATH=/bat-fe-test/ gh-pages-deploy"
   },
@@ -24,7 +24,9 @@
     "@testing-library/react": "^9.4.1",
     "concurrently": "^5.1.0",
     "cross-env": "^7.0.0",
+    "cypress": "^4.1.0",
     "env-cmd": "^10.1.0",
+    "eslint-plugin-cypress": "^2.10.3",
     "gh-pages-deploy": "^0.4.2",
     "node-sass": "^4.11.0",
     "nodemon": "^2.0.2"
