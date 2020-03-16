@@ -88,7 +88,7 @@ class BookingForm extends React.Component
 
   render ()
   {
-    const { className, onCancel } = this.props;
+    const { className, onCancel, newBooking } = this.props;
     const { dirty, title, firstName, lastName, time, partySize, status, notes} = this.state;
 
     return (
@@ -99,7 +99,7 @@ class BookingForm extends React.Component
         className={ classnames(className, 'bookings-form' ) }>
 
         <header className="bookings-form__header details-view__heading">
-          <h2>Booking update:</h2>
+          <h2>{ newBooking ? 'New Booking' : 'Booking update' }:</h2>
           <button
             onClick={onCancel }
             className="close-button"

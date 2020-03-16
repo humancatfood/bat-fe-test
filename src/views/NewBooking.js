@@ -47,6 +47,7 @@ const NewBookingView = () => {
             booking={booking}
             onSubmit={onSubmit}
             onCancel={onCancel}
+            newBooking
           />
         )
       }
