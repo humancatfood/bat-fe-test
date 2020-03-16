@@ -120,7 +120,7 @@ class BookingForm extends React.Component
                   ))
                 }
               </select>
-              <input type="text" name="firstName" value={ firstName } onChange={ this._onChange } className="dynamic" />
+              <input type="text" name="firstName" value={ firstName } onChange={ this._onChange } className="dynamic" autoFocus />
               <input type="text" name="lastName" value={ lastName } onChange={ this._onChange } className="dynamic" />
             </div>
 
