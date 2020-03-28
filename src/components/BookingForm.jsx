@@ -96,14 +96,17 @@ class BookingForm extends React.Component
         onSubmit={ this._onSubmit }
         onReset={ this._onReset }
         onClick={ e => e.stopPropagation() }
-        className={ classnames(className, 'bookings-form' ) }>
+        className={ classnames(className, 'bookings-form' ) }
+        data-cy="booking-form"
+      >
 
         <header className="bookings-form__header details-view__heading">
-          <h2>{ newBooking ? 'New Booking' : 'Booking update' }:</h2>
+          <h2 data-cy="booking-form__title">{ newBooking ? 'New Booking' : 'Booking update' }:</h2>
           <button
             onClick={onCancel }
             className="close-button"
             title="close"
+            data-cy="booking-form__cancel"
             dangerouslySetInnerHTML={{ __html: '&#x02A2F;' }}
           />
         </header>
@@ -120,36 +123,112 @@ class BookingForm extends React.Component
                   ))
                 }
               </select>
-              <input type="text" name="firstName" value={ firstName } onChange={ this._onChange } className="dynamic" autoFocus />
-              <input type="text" name="lastName" value={ lastName } onChange={ this._onChange } className="dynamic" />
+              <input
+                type="text"
+                name="firstName"
+                value={ firstName }
+                onChange={ this._onChange }
+                className="dynamic"
+                autoFocus
+                data-cy="booking-form__input--first-name"
+                required
+              />
+              <input
+                type="text"
+                name="lastName"
+                value={ lastName }
+                onChange={ this._onChange }
+                className="dynamic"
+                data-cy="booking-form__input--last-name"
+                required
+              />
             </div>
 
           </fieldset>
           <fieldset>
             <legend>Time</legend>
-            <input type="time" name="time" value={ time } onChange={ this._onChange } required />
+            <input
+              type="time"
+              name="time" value={ time } onChange={ this._onChange }
+              data-cy="booking-form__input--time"
+              required
+            />
           </fieldset>
           <fieldset>
             <legend>Covers</legend>
-            <input type="number" name="partySize" value={ partySize } onChange={ this._onChange }
-              required min="1" />
+            <input
+              type="number"
+              name="partySize"
+              value={ partySize }
+              onChange={ this._onChange }
+              min="1"
+              data-cy="booking-form__input--party-size"
+              required
+            />
           </fieldset>
-          <fieldset>
-            <legend>Seated</legend>
-            <label><input type="radio" name="status" value="no" onChange={ this._onChange } checked={ status === 'no' } />No</label>
-            <label><input type="radio" name="status" value="yes" onChange={ this._onChange } checked={ status === 'yes' } />Yes</label>
-            <label><input type="radio" name="status" value="cancelled" onChange={ this._onChange } checked={ status === 'cancelled' } />Cancelled</label>
-          </fieldset>
+          {
+            !newBooking && (
+              <>
+                <fieldset>
+                  <legend>Seated</legend>
+                  <label>
+                    <input
+                      type="radio"
+                      name="status"
+                      value="no"
+                      onChange={ this._onChange }
+                      checked={ status === 'no' }
+                      data-cy="booking-form__input--seated--no"
+                    />No
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="status"
+                      value="yes"
+                      onChange={ this._onChange }
+                      checked={ status === 'yes' }
+                      data-cy="booking-form__input--seated--yes"
+                    />Yes</label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="status"
+                      value="cancelled"
+                      onChange={ this._onChange }
+                      checked={ status === 'cancelled' }
+                      data-cy="booking-form__input--cancelled"
+                    />Cancelled</label>
+                </fieldset>
+              </>
+            )
+          }
           <fieldset>
             <legend>Notes</legend>
-            <textarea name="notes" rows="4" value={ notes } onChange={ this._onChange } ></textarea>
+            <textarea
+              name="notes"
+              rows="4"
+              value={ notes }
+              onChange={ this._onChange }
+              data-cy="booking-form__input--notes"
+            />
           </fieldset>
         </main>
 
         <footer className="bookings-form__footer">
           <fieldset>
-            <button type="submit" disabled={ !dirty } className="button--large">Save Changes</button>
-            <button type="reset" disabled={ !dirty } className="button--large">Reset</button>
+            <button
+              type="submit"
+              disabled={ !dirty }
+              className="button--large"
+              data-cy="booking-form__save"
+            >Save Changes</button>
+            <button
+              type="reset"
+              disabled={ !dirty }
+              className="button--large"
+              data-cy="booking-form__reset"
+            >Reset</button>
           </fieldset>
         </footer>
       </form>
