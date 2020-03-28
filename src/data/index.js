@@ -37,9 +37,20 @@ export const useBookingById = _id => {
 
 export const useCreateBooking = () => {
 
-  const [create, { data, loading, error /* ...rest */ }] = useMutation(queries.newBooking);
-
-  // console.log('new:', data, loading, error, rest);
+  const [create, { data, loading, error }] = useMutation(queries.newBooking, {
+    update: (cache, { data: { newBooking } }) => {
+      const { bookings } = cache.readQuery({ query: queries.getDailyBookings,
+        variables: {
+          date: newBooking.date,
+        },
+      });
+      cache.writeQuery({
+        query: queries.getDailyBookings,
+        variables: { date: newBooking.date },
+        data: { bookings: bookings.concat(newBooking) },
+      });
+    },
+  });
 
   return [
     booking => create({
