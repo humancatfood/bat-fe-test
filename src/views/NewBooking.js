@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useCreateBooking, useNewBooking } from 'data';
+import { useCreateBooking, useNewBooking, useSelectedBid } from 'data';
 
 import { useParams } from 'components/Routing';
 import BookingForm from 'components/BookingForm';
@@ -21,6 +21,7 @@ const emptyBooking = () => ({
 const NewBookingView = () => {
 
   const { date } = useParams();
+  const [ _, setSelectedBid ] = useSelectedBid();
 
   const [ _ignore_me_, setNewBooking ] = useNewBooking();
   const [ create, { /* booking: newBooking,  */loading /* error, ...rest */ }] = useCreateBooking();
@@ -29,7 +30,8 @@ const NewBookingView = () => {
 
   const onSubmit = args => {
     const { title, firstName, lastName, time, partySize, seated, cancelled, notes } = args;
-    create({ title, firstName, lastName, time, partySize, seated, cancelled, date, notes });
+    create({ title, firstName, lastName, time, partySize, seated, cancelled, date, notes })
+      .then(({ data: { newBooking }}) => setSelectedBid(newBooking._id));
   };
 
   const onCancel = () => setNewBooking(false);
