@@ -6,7 +6,7 @@
     "start": "env-cmd node ./bin/www",
     "prestart": "npm run build",
     "dev:client": "react-scripts start",
-    "dev:server": "env-cmd -f .env.development  cross-env PORT=3001 NODE_ENV=development nodemon --inspect ./bin/www",
+    "dev:server": "env-cmd -f .env.development cross-env NODE_ENV=development nodemon --inspect ./bin/www",
     "dev": "concurrently -n server,client -c 'yellow,magenta' npm:dev:server npm:dev:client",
     "build": "react-scripts build",
     "test": "cypress open",
