@@ -14,9 +14,9 @@ module.exports.formatError = error => {
   const { originalError } = error;
 
   if (_.get(originalError, ['name'], '') === ValidationError.name) {
-    return formatValidationError(originalError);
-  } else {
-    return error;
+    error.validationErrors = formatValidationError(originalError);
   }
+
+  return error;
 
 };
