@@ -1,0 +1,11 @@
+{
+  "watch": [
+    "./.env",
+    "./.env.development",
+    "./.env.development.local",
+    "./server"
+  ],
+  "events": {
+    "restart": "osascript -e 'display notification \"App restarted\"'"
+  }
+}
