@@ -14,7 +14,7 @@ const bookingInputSchema = yup.object().shape({
   date: dateInputSchema.required(),
   time: yup.string().required().matches(/^\d\d(:|.)\d\d$/, 'bad time format, expected `hh:mm`'),
   partySize: yup.number().required(),
-  notes: yup.string().trim().notRequired().max(140).ensure(),
+  notes: yup.string().trim().notRequired().max(250).ensure(),
   seated: yup.boolean().notRequired().default(false),
   cancelled: yup.boolean().notRequired().default(false),
 });

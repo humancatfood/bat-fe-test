@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { useSelectedBid, useBookingById, useUpdateBooking } from 'data';
 
@@ -12,34 +12,41 @@ const BookingDetailView = () => {
   const { date } = useParams();
 
   const [ bid, selectBid ] = useSelectedBid();
-  const { booking, loading, error } = useBookingById(bid);
+  const { booking, loading: bookingIsLoading, error: bookingError } = useBookingById(bid);
 
-  const [ update ] = useUpdateBooking();
-
-  useEffect(() => {
-    if (error) {
-      console.error('error:', error);
-      selectBid(undefined);
-    }
-  }, [ error, selectBid ]);
-
+  const [ update, { loading: updateIsLoading, validationErrors } ] = useUpdateBooking();
 
   const onSubmit = args => {
     const { title, firstName, lastName, time, partySize, seated, cancelled, notes } = args;
     update(bid, { title, firstName, lastName, time, partySize, seated, cancelled, date, notes });
   };
 
-
   const onCancel = () => selectBid(null);
-
 
   return (
     <section
       className="details-view"
-      onClick={ () => selectBid(undefined) }
     >
       {
-        loading && 'loading..'
+        bookingIsLoading && 'loading..'
+      }
+      {
+        !bookingIsLoading && !booking && (
+          <div>
+            404: booking not found
+            &nbsp;
+            <button onClick={onCancel}>x</button>
+          </div>
+        )
+      }
+      {
+        bookingError && (
+          <div>
+            error fetching booking
+            &nbsp;
+            <button onClick={onCancel}>x</button>
+          </div>
+        )
       }
       {
         booking && (
@@ -48,6 +55,8 @@ const BookingDetailView = () => {
             booking={booking}
             onSubmit={onSubmit}
             onCancel={onCancel}
+            loading={updateIsLoading}
+            errors={validationErrors}
           />
         )
       }

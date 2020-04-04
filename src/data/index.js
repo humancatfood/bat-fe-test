@@ -3,41 +3,43 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import { useHistory, useLocation } from '../components/Routing';
 import * as queries from './queries';
 
+export { queries };
+
 export { default as Provider } from './Provider';
 
 
 
+const getValidationErrorsFromStatus = status => (status?.error?.graphQLErrors || []).flatMap(error => error.validationErrors);
+
 // TODO: factor these hooks into modules
 
 export const useDailyBookings = date => {
-  const { data, loading, error } = useQuery(
+  const result = useQuery(
     queries.getDailyBookings,
     { variables: { date } },
   );
   return {
-    error,
-    loading,
-    bookings: data && data.bookings,
+    ...result,
+    bookings: result?.data?.bookings,
   };
 };
 
 
 export const useBookingById = _id => {
-  const { data, loading, error } = useQuery(
+  const result = useQuery(
     queries.getBookingById,
     { variables: { _id } },
   );
   return {
-    error,
-    loading,
-    booking: data && data.booking,
+    ...result,
+    booking: result?.data?.booking,
   };
 };
 
 
 export const useCreateBooking = () => {
 
-  const [create, { data, loading, error }] = useMutation(queries.newBooking, {
+  const [create, status] = useMutation(queries.newBooking, {
     update: (cache, { data: { newBooking } }) => {
       const { bookings } = cache.readQuery({ query: queries.getDailyBookings,
         variables: {
@@ -57,11 +59,10 @@ export const useCreateBooking = () => {
       variables: {
         booking,
       },
-    }),
+    }).catch(console.error.bind(null, 'error:')),
     {
-      error,
-      loading,
-      booking: data && data.booking,
+      ...status,
+      validationErrors: getValidationErrorsFromStatus(status),
     },
   ];
 
@@ -70,18 +71,17 @@ export const useCreateBooking = () => {
 
 export const useUpdateBooking = () => {
 
-  const [update, { data, loading, error }] = useMutation(queries.updateBooking);
+  const [update, status] = useMutation(queries.updateBooking);
 
   return [
     (_id, booking) => update({
       variables: {
         _id, booking,
       },
-    }),
+    }).catch(console.error.bind(null, 'error:')),
     {
-      error,
-      loading,
-      booking: data && data.booking,
+      ...status,
+      booking: status?.data?.booking,
     },
   ];
 

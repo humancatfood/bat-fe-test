@@ -88,8 +88,10 @@ class BookingForm extends React.Component
 
   render ()
   {
-    const { className, onCancel, newBooking } = this.props;
+    const { className, onCancel, newBooking, errors } = this.props;
     const { dirty, title, firstName, lastName, time, partySize, status, notes} = this.state;
+
+    console.log('errors:', errors);
 
     return (
       <form onChange={ this._onChange }
@@ -131,6 +133,7 @@ class BookingForm extends React.Component
                 className="dynamic"
                 autoFocus
                 data-cy="booking-form__input--first-name"
+                maxLength={20}
                 required
               />
               <input
@@ -140,6 +143,7 @@ class BookingForm extends React.Component
                 onChange={ this._onChange }
                 className="dynamic"
                 data-cy="booking-form__input--last-name"
+                maxLength={20}
                 required
               />
             </div>
@@ -162,6 +166,7 @@ class BookingForm extends React.Component
               value={ partySize }
               onChange={ this._onChange }
               min="1"
+              max="15"
               data-cy="booking-form__input--party-size"
               required
             />
@@ -211,6 +216,7 @@ class BookingForm extends React.Component
               value={ notes }
               onChange={ this._onChange }
               data-cy="booking-form__input--notes"
+              maxLength={250}
             />
           </fieldset>
         </main>

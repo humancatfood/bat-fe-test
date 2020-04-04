@@ -13,8 +13,6 @@ const emptyBooking = () => ({
   lastName: undefined,
   time: '--:--',
   partySize: undefined,
-  seated: false,
-  cancelled: false,
   notes: '',
 });
 
@@ -24,14 +22,14 @@ const NewBookingView = () => {
   const [ _, setSelectedBid ] = useSelectedBid();
 
   const [ _ignore_me_, setNewBooking ] = useNewBooking();
-  const [ create, { /* booking: newBooking,  */loading /* error, ...rest */ }] = useCreateBooking();
+  const [ create, { loading, validationErrors }] = useCreateBooking();
 
   const booking = emptyBooking();
 
   const onSubmit = args => {
     const { title, firstName, lastName, time, partySize, seated, cancelled, notes } = args;
     create({ title, firstName, lastName, time, partySize, seated, cancelled, date, notes })
-      .then(({ data: { newBooking }}) => setSelectedBid(newBooking._id));
+      .then(result => setSelectedBid(result?.data?.newBooking?._id));
   };
 
   const onCancel = () => setNewBooking(false);
@@ -49,6 +47,7 @@ const NewBookingView = () => {
             booking={booking}
             onSubmit={onSubmit}
             onCancel={onCancel}
+            errors={validationErrors}
             newBooking
           />
         )

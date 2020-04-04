@@ -12,11 +12,6 @@ const httpLink = new HttpLink({
 const client = new ApolloClient({
   link: ApolloLink.from([httpLink]),
   cache: new InMemoryCache(),
-  defaultOptions: {
-    mutate: {
-      errorPolicy: 'all',
-    },
-  },
 });
 
 
