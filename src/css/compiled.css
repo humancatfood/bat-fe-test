@@ -44,12 +44,7 @@ body,
 
 .table-view,
 .details-view {
-  padding: 20px 20px;
-  pointer-events: none; }
-  .table-view__header, .table-view__body,
-  .details-view__header,
-  .details-view__body {
-    pointer-events: all; }
+  padding: 20px 20px; }
 
 .details-view {
   position: fixed;

@@ -4,12 +4,6 @@
 .table-view,
 .details-view {
   padding: $section-padding-vertical $section-padding-horizontal;
-  pointer-events: none;
-
-  &__header,
-  &__body {
-    pointer-events: all;
-  }
 }
 
 .details-view {
