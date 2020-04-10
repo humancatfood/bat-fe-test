@@ -1,6 +1,7 @@
 /* Feel free to edit */
 import React, { useMemo } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -8,7 +9,6 @@ import { Provider as GraphQLProvider } from './data';
 
 import configureStore from './data/store';
 
-import { Router, Route, Switch } from './components/Routing';
 
 import Overview from './views/Overview';
 import FourOhFour from './views/FourOhFour';
@@ -22,7 +22,7 @@ const App = () => {
   const theme = useMemo(createMuiTheme, [ createMuiTheme ]);
 
   return (
-    <Router>
+    <BrowserRouter>
       <GraphQLProvider>
         <ReduxProvider store={ store }>
           <ThemeProvider theme={ theme }>
@@ -35,7 +35,7 @@ const App = () => {
           </ThemeProvider>
         </ReduxProvider>
       </GraphQLProvider>
-    </Router>
+    </BrowserRouter>
   );
 };
 

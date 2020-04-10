@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Redirect } from './../components/Routing';
+import { Redirect } from 'react-router-dom';
 
 
 

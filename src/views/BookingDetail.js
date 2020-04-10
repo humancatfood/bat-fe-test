@@ -1,8 +1,8 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import { useSelectedBid, useBookingById, useUpdateBooking } from 'data';
 
-import { useParams } from 'components/Routing';
 import BookingForm from 'components/BookingForm';
 
 

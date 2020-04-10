@@ -1,8 +1,8 @@
-import { useQuery, useMutation } from '@apollo/react-hooks';
-
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import moment from 'moment';
 
-import { useHistory, useLocation, useParams } from '../components/Routing';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+
 import * as queries from './queries';
 
 export { queries };
