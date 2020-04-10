@@ -1,6 +1,8 @@
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
-import { useHistory, useLocation } from '../components/Routing';
+import moment from 'moment';
+
+import { useHistory, useLocation, useParams } from '../components/Routing';
 import * as queries from './queries';
 
 export { queries };
@@ -16,7 +18,9 @@ const getValidationErrorsFromStatus = status => (status?.error?.graphQLErrors ||
 export const useDailyBookings = date => {
   const result = useQuery(
     queries.getDailyBookings,
-    { variables: { date } },
+    { variables: {
+      date: date.format('YYYY-MM-DD'),
+    } },
   );
   return {
     ...result,
@@ -87,6 +91,24 @@ export const useUpdateBooking = () => {
 
 };
 
+
+export const useSelectedDate = () => {
+  const { date: rawDate } = useParams();
+  const date = moment(rawDate);
+  const history = useHistory();
+  return [
+    date,
+    arg => {
+      if (moment.isMoment(arg)) {
+        history.push(`/${arg.format('YYYY-MM-DD')}`);
+      } else if (arg === 1) {
+        history.push(`/${date.add(1, 'day').format('YYYY-MM-DD')}`);
+      } else if (arg === -1) {
+        history.push(`/${date.subtract(1, 'day').format('YYYY-MM-DD')}`);
+      }
+    },
+  ];
+};
 
 export const useURLParameter = (key, { replaces }={}) => {
 
