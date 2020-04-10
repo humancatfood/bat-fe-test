@@ -8,6 +8,7 @@ import BookingDetailView from 'views/BookingDetail';
 import NewBookingView from 'views/NewBooking';
 
 import Header from './Header';
+import Fab from './Fab';
 
 
 
@@ -23,9 +24,6 @@ const DailyBookingsView = () => {
     <>
       <Header />
       <section className="table-view">
-        <label className="table-view__header">
-          <button onClick={() => setNewBooking(true)}>Create New Booking</button>
-        </label>
         {
           loading && 'loading..'
         }
@@ -60,6 +58,9 @@ const DailyBookingsView = () => {
           <NewBookingView />
         )
       }
+      <Fab
+        onClick={() => setNewBooking(true)}
+      />
     </>
   );
 };
