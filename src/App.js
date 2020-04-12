@@ -9,11 +9,11 @@ import { Provider as GraphQLProvider } from './data';
 
 import configureStore from './data/store';
 
-
 import Overview from './views/Overview';
 import FourOhFour from './views/FourOhFour';
 
 import DailyBookingsView from 'views/DailyBookings';
+
 
 
 const App = () => {

@@ -9,6 +9,7 @@ import NewBookingView from 'views/NewBooking';
 
 import Header from './Header';
 import Fab from './Fab';
+import * as Layout from './Layout';
 
 
 
@@ -21,9 +22,11 @@ const DailyBookingsView = () => {
   const { bookings, loading, error } = useDailyBookings(selectedDate);
 
   return (
-    <>
-      <Header />
-      <section className="table-view">
+    <Layout.Container>
+      <Layout.Header>
+        <Header />
+      </Layout.Header>
+      <Layout.Main>
         {
           loading && 'loading..'
         }
@@ -47,21 +50,19 @@ const DailyBookingsView = () => {
         {
           error && JSON.stringify(error)
         }
-      </section>
-      {
-        selectedBid && (
-          <BookingDetailView />
-        )
-      }
-      {
-        newBooking && (
-          <NewBookingView />
-        )
-      }
-      <Fab
-        onClick={() => setNewBooking(true)}
-      />
-    </>
+        {
+          selectedBid && (
+            <BookingDetailView />
+          )
+        }
+        {
+          newBooking && (
+            <NewBookingView />
+          )
+        }
+        <Fab onClick={() => setNewBooking(true)}/>
+      </Layout.Main>
+    </Layout.Container>
   );
 };
 

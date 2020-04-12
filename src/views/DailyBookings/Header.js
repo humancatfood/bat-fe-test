@@ -7,8 +7,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 import EventIcon from '@material-ui/icons/Event';
-import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import ArrowLeftIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowRightIcon from '@material-ui/icons/ArrowForwardIos';
 
 import { useSelectedDate } from 'data';
 
