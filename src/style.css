@@ -1,7 +1,3 @@
-@import '_variables.scss';
-
-
-
 html,
 body,
 #root {
@@ -23,23 +19,4 @@ body,
   flex: 1;
   margin: 0 auto;
   width: 100%;
-}
-
-
-
-
-@media (min-width: $cut-off-point-1) {
-
-  .layout__body {
-    width: $cut-off-point-1;
-  }
-
-}
-
-@media (min-width: $cut-off-point-2) {
-
-  .layout__body {
-    width: $cut-off-point-2;
-  }
-
 }
