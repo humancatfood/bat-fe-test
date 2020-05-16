@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useSelectedBid, useBookingById, useUpdateBooking } from 'data';
 
 import BookingForm from 'components/BookingForm';
+import FormDialog from 'components/FormDialog';
 
 
 
@@ -24,8 +25,8 @@ const BookingDetailView = () => {
   const onCancel = () => selectBid(null);
 
   return (
-    <section
-      className="details-view"
+    <FormDialog
+      title="Booking update"
     >
       {
         bookingIsLoading && 'loading..'
@@ -60,7 +61,7 @@ const BookingDetailView = () => {
           />
         )
       }
-    </section>
+    </FormDialog>
   );
 
 };
