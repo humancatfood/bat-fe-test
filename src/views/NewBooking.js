@@ -1,18 +1,19 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import moment from 'moment';
 
 import { useCreateBooking, useNewBooking, useSelectedBid } from 'data';
 
-import BookingForm from 'components/BookingForm';
+import BookingFormDialog from 'components/BookingFormDialog';
 
 
 
 const emptyBooking = () => ({
-  title: undefined,
-  firstName: undefined,
-  lastName: undefined,
-  time: '--:--',
-  partySize: undefined,
+  title: 'Mr',
+  firstName: '',
+  lastName: '',
+  time: moment().add(1, 'hour').startOf('hour').format('HH:mm'),
+  partySize: 2,
   notes: '',
 });
 
@@ -36,23 +37,20 @@ const NewBookingView = () => {
 
 
   return (
-    <section className="details-view">
-      {
-        loading && 'loading..'
-      }
-      {
-        booking && (
-          <BookingForm
-            className="details-view__body"
-            booking={booking}
-            onSubmit={onSubmit}
-            onCancel={onCancel}
-            errors={validationErrors}
-            newBooking
-          />
-        )
-      }
-    </section>
+    <BookingFormDialog
+      title="Booking update"
+      booking={booking}
+      isLoading={loading}
+      errors={validationErrors}
+      onSubmit={onSubmit}
+      onCancel={onCancel}
+      submitLabel="Save Changes"
+      date={date}
+      newBooking
+    />
+  // <BookingForm
+  //   onSubmit={onSubmit}
+  // />
   );
 
 };

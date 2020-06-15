@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useSelectedBid, useBookingById, useUpdateBooking } from 'data';
 
-import BookingForm from 'components/BookingForm';
-import FormDialog from 'components/FormDialog';
+import BookingFormDialog from 'components/BookingFormDialog';
+import Error from 'components/Error';
+import { useEffect } from 'react';
 
 
 
@@ -13,56 +14,46 @@ const BookingDetailView = () => {
   const { date } = useParams();
 
   const [ bid, selectBid ] = useSelectedBid();
-  const { booking, loading: bookingIsLoading, error: bookingError } = useBookingById(bid);
+  const { booking, loading, error: bookingError } = useBookingById(bid);
+  const [ update, { validationErrors } ] = useUpdateBooking();
 
-  const [ update, { loading: updateIsLoading, validationErrors } ] = useUpdateBooking();
+  const [ error, setError ] = useState(null);
 
-  const onSubmit = args => {
-    const { title, firstName, lastName, time, partySize, seated, cancelled, notes } = args;
-    update(bid, { title, firstName, lastName, time, partySize, seated, cancelled, date, notes });
+  useEffect(() => {
+    if (!loading && !booking) {
+      setError('404: booking not found');
+    } else if (bookingError) {
+      setError('error fetching booking');
+    }
+  }, [loading, booking, bookingError]);
+
+  const onSubmit = booking => {
+    const { title, firstName, lastName, time, partySize, seated, cancelled, notes } = booking;
+    update(bid, { title, firstName, lastName, time, partySize, seated, cancelled, date, notes })
+      .then(() => selectBid(null))
+      .catch(console.error.bind(null, 'error:'));
   };
 
   const onCancel = () => selectBid(null);
 
-  return (
-    <FormDialog
-      title="Booking update"
-    >
-      {
-        bookingIsLoading && 'loading..'
-      }
-      {
-        !bookingIsLoading && !booking && (
-          <div>
-            404: booking not found
-            &nbsp;
-            <button onClick={onCancel}>x</button>
-          </div>
-        )
-      }
-      {
-        bookingError && (
-          <div>
-            error fetching booking
-            &nbsp;
-            <button onClick={onCancel}>x</button>
-          </div>
-        )
-      }
-      {
-        booking && (
-          <BookingForm
-            className="details-view__body"
-            booking={booking}
-            onSubmit={onSubmit}
-            onCancel={onCancel}
-            loading={updateIsLoading}
-            errors={validationErrors}
-          />
-        )
-      }
-    </FormDialog>
-  );
+  if (error) {
+    return (
+      <Error onClose={setError.bind(null, false)}>{error}</Error>
+    );
+  } else {
+    return (
+      <BookingFormDialog
+        title="Booking update"
+        booking={booking}
+        isLoading={loading}
+        errors={validationErrors}
+        onSubmit={onSubmit}
+        onCancel={onCancel}
+        submitLabel="Save Changes"
+        date={date}
+      />
+    );
+  }
 
 };
 

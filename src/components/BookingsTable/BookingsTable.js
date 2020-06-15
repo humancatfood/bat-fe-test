@@ -1,78 +1,23 @@
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-
-import TableRaw from '@material-ui/core/Table';
-import TableBodyRaw from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainerRaw from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-
-import { styled } from '@material-ui/styles';
-
-
 import { connect } from 'react-redux';
 
 import { sortBy } from '../../data/actions';
 
-import ColumnHeader from './ColumnHeader';
+import * as Components from './Components';
 
 
-
-const TableContainer = styled(TableContainerRaw)(({ shadows }) => ({
-  height: '100%',
-  overflow: 'auto',
-
-  '&:after': {
-    content: '""',
-    height: 0,
-    position: 'absolute',
-    width: '100vw',
-    left: '50%',
-    bottom: 0,
-    transform: 'translate(-50%, 10px)',
-    boxShadow: '0px 0px 5px 1px black',
-
-    transition: 'transform 200ms ease-in-out',
-
-    ...(shadows[1] && {
-      transform: 'translate(-50%, 1px)',
-    }),
-  },
-}));
-
-const Table = styled(TableRaw)({
-  tableLayout: 'fixed',
-});
-
-const TableBody = styled(TableBodyRaw)(({ shadows }) => ({
-  '&:before': {
-    content: '""',
-    height: 0,
-    position: 'absolute',
-    width: '100vw',
-    left: '50%',
-    transform: 'translate(-50%, -10px)',
-    boxShadow: '0px 0px 5px 1px black',
-
-    transition: 'transform 200ms ease-in-out',
-
-    ...(shadows[0] && {
-      transform: 'translate(-50%, 0px)',
-    }),
-  },
-}));
 
 const calcShadows = element => ([
   element.scrollTop > 0,
-  element.scrollTop + element.offsetHeight < element.scrollHeight,
+  (element.scrollTop + element.offsetHeight) < element.scrollHeight,
 ]);
 
 const BookingsTable = ({ bookings, sortProp, sortOrder, selectedId, selectId }) => {
 
   const ref = useRef();
-  const [ shadows, setShadows ] = useState([]);
+  const [ shadows, setShadows ] = useState([false, false]);
   useEffect(() => {
     if (ref.current) {
       setShadows(calcShadows(ref.current));
@@ -80,42 +25,43 @@ const BookingsTable = ({ bookings, sortProp, sortOrder, selectedId, selectId }) 
   }, [ setShadows ]);
 
   return (
-    <TableContainer
+    <Components.TableContainer
       ref={ref}
       onScroll={e => setShadows(calcShadows(e.target))}
-      shadows={shadows}
+      shadow={shadows[1]}
     >
-      <Table aria-label="Bookings Table" stickyHeader>
-        <TableHead>
-          <TableRow>
-            <ColumnHeader label="Name" />
-            <ColumnHeader sortValue="time" label="Time" />
-            <ColumnHeader sortValue="partySize" label="Covers" />
-            <ColumnHeader sortValue="seated" label="Seated" />
-          </TableRow>
-        </TableHead>
-        <TableBody shadows={shadows}>
+      <Components.Table aria-label="Bookings Table" stickyHeader>
+        <Components.TableHead>
+          <Components.TableRow>
+            <Components.ColumnHeader label="Name" />
+            <Components.ColumnHeader sortValue="time" label="Time" />
+            <Components.ColumnHeader sortValue="partySize" label="Covers" />
+            <Components.ColumnHeader sortValue="seated" label="Seated" />
+          </Components.TableRow>
+        </Components.TableHead>
+        <Components.TableBody shadow={shadows[0]}>
           {
             sortBookings(bookings, sortProp, sortOrder).map(booking => (
-              <TableRow
+              <Components.TableRow
+                hover
+                selected={selectedId === booking._id}
                 key={ booking._id }
-                className={ classnames({
+                className={ classnames({    //TODO: use proper mui styling strategies here
                   seated: booking.seated,
                   cancelled: booking.cancelled,
-                  selected: selectedId === booking._id,
                 }) }
                 onClick={ () => selectId(booking._id) }
               >
-                <TableCell>{ `${ booking.title } ${ booking.firstName } ${ booking.lastName }` }</TableCell>
-                <TableCell>{ booking.time }</TableCell>
-                <TableCell>{ booking.partySize }</TableCell>
-                <TableCell>{ booking.seated ? 'Y' : 'N' }</TableCell>
-              </TableRow>
+                <Components.TableCell>{ `${ booking.title } ${ booking.firstName } ${ booking.lastName }` }</Components.TableCell>
+                <Components.TableCell>{ booking.time }</Components.TableCell>
+                <Components.TableCell>{ booking.partySize }</Components.TableCell>
+                <Components.TableCell>{ booking.seated ? 'Y' : 'N' }</Components.TableCell>
+              </Components.TableRow>
             ))
           }
-        </TableBody>
-      </Table>
-    </TableContainer>
+        </Components.TableBody>
+      </Components.Table>
+    </Components.TableContainer>
   );
 };
 
