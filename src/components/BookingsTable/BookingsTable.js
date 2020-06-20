@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import { useSelector } from 'react-redux';
 
 import * as Components from './Components';
@@ -41,6 +40,7 @@ const BookingsTable = ({ bookings, selectedId, selectId }) => {
             <Components.ColumnHeader sortValue="time" label="Time" />
             <Components.ColumnHeader sortValue="partySize" label="Covers" />
             <Components.ColumnHeader sortValue="seated" label="Seated" />
+            <Components.ColumnHeader sortValue="cancelled" label="Cancelled" />
           </Components.TableRow>
         </Components.TableHead>
         <Components.TableBody shadow={shadows[0]}>
@@ -99,19 +99,17 @@ function calcShadows (element) {
 function renderBooking ( booking, selectedId, selectId) {
   return (
     <Components.TableRow
-      hover
-      selected={selectedId === booking._id}
-      key={ booking._id }
-      className={ classnames({    //TODO: use proper mui styling strategies here
-        seated: booking.seated,
-        cancelled: booking.cancelled,
-      }) }
-      onClick={ () => selectId(booking._id) }
+      key={booking._id}
+      isSelected={selectedId === booking._id}
+      isSeated={booking.seated}
+      isCancelled={booking.cancelled}
+      onClick={() => selectId(booking._id)}
     >
       <Components.TableCell>{ `${ booking.title } ${ booking.firstName } ${ booking.lastName }` }</Components.TableCell>
       <Components.TableCell>{ booking.time }</Components.TableCell>
       <Components.TableCell>{ booking.partySize }</Components.TableCell>
       <Components.TableCell>{ booking.seated ? 'Y' : 'N' }</Components.TableCell>
+      <Components.TableCell>{ booking.cancelled ? 'Y' : 'N' }</Components.TableCell>
     </Components.TableRow>
   );
 }
