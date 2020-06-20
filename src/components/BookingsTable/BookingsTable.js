@@ -9,11 +9,6 @@ import * as Components from './Components';
 
 
 
-const calcShadows = element => ([
-  element.scrollTop > 0,
-  (element.scrollTop + element.offsetHeight) < element.scrollHeight,
-]);
-
 const BookingsTable = ({ bookings, sortProp, sortOrder, selectedId, selectId }) => {
 
   const ref = useRef();
@@ -23,6 +18,15 @@ const BookingsTable = ({ bookings, sortProp, sortOrder, selectedId, selectId }) 
       setShadows(calcShadows(ref.current));
     }
   }, [ setShadows ]);
+
+  const content = bookings.length ?
+    bookings
+      .sort(sortBookings(bookings, sortProp, sortOrder))
+      .map(booking => renderBooking(booking, selectedId, selectId))
+    : (
+      <Components.EmptyView />
+    );
+
 
   return (
     <Components.TableContainer
@@ -41,43 +45,13 @@ const BookingsTable = ({ bookings, sortProp, sortOrder, selectedId, selectId }) 
         </Components.TableHead>
         <Components.TableBody shadow={shadows[0]}>
           {
-            sortBookings(bookings, sortProp, sortOrder).map(booking => (
-              <Components.TableRow
-                hover
-                selected={selectedId === booking._id}
-                key={ booking._id }
-                className={ classnames({    //TODO: use proper mui styling strategies here
-                  seated: booking.seated,
-                  cancelled: booking.cancelled,
-                }) }
-                onClick={ () => selectId(booking._id) }
-              >
-                <Components.TableCell>{ `${ booking.title } ${ booking.firstName } ${ booking.lastName }` }</Components.TableCell>
-                <Components.TableCell>{ booking.time }</Components.TableCell>
-                <Components.TableCell>{ booking.partySize }</Components.TableCell>
-                <Components.TableCell>{ booking.seated ? 'Y' : 'N' }</Components.TableCell>
-              </Components.TableRow>
-            ))
+            content
           }
         </Components.TableBody>
       </Components.Table>
     </Components.TableContainer>
   );
 };
-
-function sortBookings (bookings, sortProp, sortOrder) {
-  return bookings.sort((a, b) => {
-    const va = a[sortProp];
-    const vb = b[sortProp];
-    if (va > vb) {
-      return 1 * sortOrder;
-    } else if (va < vb) {
-      return -1 * sortOrder;
-    } else {
-      return 0;
-    }
-  });
-}
 
 BookingsTable.propTypes = {
   bookings: PropTypes.arrayOf(PropTypes.shape({
@@ -95,6 +69,51 @@ BookingsTable.propTypes = {
   selectId: PropTypes.func,
 };
 
+
+
+function sortBookings (bookings, sortProp, sortOrder) {
+  return (a, b) => {
+    const va = a[sortProp];
+    const vb = b[sortProp];
+    if (va > vb) {
+      return 1 * sortOrder;
+    } else if (va < vb) {
+      return -1 * sortOrder;
+    } else {
+      return 0;
+    }
+  };
+}
+
+
+
+function calcShadows (element) {
+  return [
+    element.scrollTop > 0,
+    (element.scrollTop + element.offsetHeight) < element.scrollHeight,
+  ];
+}
+
+
+function renderBooking ( booking, selectedId, selectId) {
+  return (
+    <Components.TableRow
+      hover
+      selected={selectedId === booking._id}
+      key={ booking._id }
+      className={ classnames({    //TODO: use proper mui styling strategies here
+        seated: booking.seated,
+        cancelled: booking.cancelled,
+      }) }
+      onClick={ () => selectId(booking._id) }
+    >
+      <Components.TableCell>{ `${ booking.title } ${ booking.firstName } ${ booking.lastName }` }</Components.TableCell>
+      <Components.TableCell>{ booking.time }</Components.TableCell>
+      <Components.TableCell>{ booking.partySize }</Components.TableCell>
+      <Components.TableCell>{ booking.seated ? 'Y' : 'N' }</Components.TableCell>
+    </Components.TableRow>
+  );
+}
 
 
 const mapStateToProps = ({ ui: {sortProp, sortOrder}}) => ({

@@ -1,6 +1,8 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 import MuiTableContainer from '@material-ui/core/TableContainer';
 import MuiTable from '@material-ui/core/Table';
 import MuiTableBody from '@material-ui/core/TableBody';
@@ -14,8 +16,8 @@ export { default as TableCell } from '@material-ui/core/TableCell';
 export {default as ColumnHeader} from './ColumnHeader';
 
 
-const useStyles = makeStyles(theme => ({
-  container: {
+const useContainerStyles = makeStyles(theme => ({
+  root: {
     height: '100%',
     overflow: 'auto',
 
@@ -32,31 +34,18 @@ const useStyles = makeStyles(theme => ({
       transition: 'transform 200ms ease-in-out',
     },
   },
-
-  body: {
-    '&:before': {
-      content: '""',
-      position: 'absolute',
-      width: '100vw',
-      height: 10,
-      top: 48,
-      left: '50%',
-      transform: shadow => `translate(-50%, ${shadow ? 0 : -10}px)`,
-      boxShadow: theme.shadows[5],
-      transition: 'transform 200ms ease-in-out',
-    },
-  },
 }));
 
-
-
-export const TableContainer = forwardRef(({shadow, ...props}, ref) => (
-  <MuiTableContainer
-    ref={ref}
-    className={useStyles(shadow).container}
-    {...props}
-  />
-));
+export const TableContainer = forwardRef(({shadow, ...props}, ref) => {
+  const { root } = useContainerStyles(shadow);
+  return (
+    <MuiTableContainer
+      ref={ref}
+      classes={{root}}
+      {...props}
+    />
+  );
+});
 
 TableContainer.displayName = 'TableContainer';
 TableContainer.propTypes = {
@@ -71,12 +60,53 @@ export const Table = styled(MuiTable)({
 
 
 
-export const TableBody = ({ shadow, ...props }) => (
-  <MuiTableBody
-    className={useStyles(shadow).body}
-    {...props}
-  />
-);
+const useBodyStyles = makeStyles(theme => ({
+  root: {
+    '&:before': {
+      content: '""',
+      position: 'absolute',
+      width: '100vw',
+      height: 10,
+      top: 48,
+      left: '50%',
+      transform: shadow => `translate(-50%, ${shadow ? 0 : -10}px)`,
+      boxShadow: theme.shadows[5],
+      transition: 'transform 200ms ease-in-out',
+    },
+  },
+}));
+
+export const TableBody = ({ shadow, ...props }) => {
+  const { root } = useBodyStyles(shadow);
+  return (
+    <MuiTableBody
+      classes={{ root }}
+      {...props}
+    />
+  );
+};
 TableBody.propTypes = {
   shadow: PropTypes.bool.isRequired,
+};
+
+
+
+const useEmptyStyles = makeStyles(() => ({
+  root: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    minWidth: 220,
+  },
+}));
+
+export const EmptyView = () => {
+  const { root } = useEmptyStyles();
+  return (
+    <Alert classes={{ root }} severity="info">
+      <AlertTitle>No Bookings</AlertTitle>
+      There are no bookings for this day
+    </Alert>
+  );
 };
