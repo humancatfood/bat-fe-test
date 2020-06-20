@@ -1,18 +1,18 @@
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { connect } from 'react-redux';
-
-import { sortBy } from '../../data/actions';
+import { useSelector } from 'react-redux';
 
 import * as Components from './Components';
 
 
 
-const BookingsTable = ({ bookings, sortProp, sortOrder, selectedId, selectId }) => {
+const BookingsTable = ({ bookings, selectedId, selectId }) => {
 
   const ref = useRef();
+  const { sortProp, sortOrder } = useSelector(state => state?.ui);
   const [ shadows, setShadows ] = useState([false, false]);
+
   useEffect(() => {
     if (ref.current) {
       setShadows(calcShadows(ref.current));
@@ -70,6 +70,8 @@ BookingsTable.propTypes = {
 };
 
 
+export default BookingsTable;
+
 
 function sortBookings (bookings, sortProp, sortOrder) {
   return (a, b) => {
@@ -84,7 +86,6 @@ function sortBookings (bookings, sortProp, sortOrder) {
     }
   };
 }
-
 
 
 function calcShadows (element) {
@@ -114,16 +115,3 @@ function renderBooking ( booking, selectedId, selectId) {
     </Components.TableRow>
   );
 }
-
-
-const mapStateToProps = ({ ui: {sortProp, sortOrder}}) => ({
-  sortProp,
-  sortOrder,
-});
-
-
-const mapDispatchToProps = {
-  sortBy,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(BookingsTable);
