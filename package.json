@@ -1,6 +1,6 @@
 {
   "name": "bookatable-fe-test-2017-03",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Basic table booking manager prototype",
   "scripts": {
     "start": "env-cmd node ./bin/www",
