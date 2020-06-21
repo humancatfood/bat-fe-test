@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/styles';
 
 
 
-const useEmptyStyles = makeStyles(() => ({
+const useStyles = makeStyles(() => ({
   root: {
     position: 'absolute',
     top: '50%',
@@ -15,8 +15,9 @@ const useEmptyStyles = makeStyles(() => ({
     minWidth: 220,
   },
 }));
+
 const EmptyView = () => {
-  const { root } = useEmptyStyles();
+  const { root } = useStyles();
   return (
     <Alert classes={{ root }} severity="info">
       <AlertTitle>No Bookings</AlertTitle>

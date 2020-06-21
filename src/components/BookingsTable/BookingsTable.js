@@ -8,59 +8,6 @@ import * as Components from './Components';
 
 
 
-const getColumns = isHead => ([{
-  key: 'name',
-  variant: isHead ? 'head' : 'body',
-  label: 'Name',
-  ...(!isHead && {
-    accessor: booking => `${ booking.title } ${ booking.firstName } ${ booking.lastName }`,
-  }),
-}, {
-  key: 'time',
-  variant: isHead ? 'head' : 'body',
-  label: 'Time',
-  align: 'right',
-  ...(isHead ? {
-    sortValue: 'time',
-  } : {
-    accessor: booking => booking.time,
-  }),
-
-}, {
-  key: 'covers',
-  variant: isHead ? 'head' : 'body',
-  label: 'Covers',
-  align: 'right',
-  ...(isHead ? {
-    sortValue: 'time',
-  } : {
-    accessor: booking => booking.partySize,
-  }),
-}, {
-  key: 'seated',
-  variant: isHead ? 'head' : 'body',
-  label: 'Seated',
-  padding: 'checkbox',
-  align: 'center',
-  ...(isHead ? {
-    sortValue: 'seated',
-  } : {
-    accessor: booking => booking.seated && <Components.CheckIcon />,
-  }),
-}, {
-  key: 'cancelled',
-  variant: isHead ? 'head' : 'body',
-  label: 'Cancelled',
-  align: 'center',
-  padding: 'checkbox',
-  ...(isHead ? {
-    sortValue: 'cancelled',
-  } : {
-    accessor: booking => booking.cancelled && <Components.ClearIcon />,
-  }),
-}]);
-
-
 const BookingsTable = ({ bookings, selectedId, selectId }) => {
 
   const ref = useRef();
@@ -162,13 +109,15 @@ function renderBooking (booking, selectedId, selectId, columns) {
     <Components.TableRow
       key={booking._id}
       isSelected={selectedId === booking._id}
-      isSeated={booking.seated}
-      isCancelled={booking.cancelled}
       onClick={() => selectId(booking._id)}
     >
       {
         columns.map(({key, accessor, ...props}) => (
-          <Components.TableCell key={key} {...props}>
+          <Components.TableCell
+            key={key}
+            isCancelled={booking.cancelled}
+            {...props}
+          >
             {
               accessor(booking)
             }
@@ -177,4 +126,59 @@ function renderBooking (booking, selectedId, selectId, columns) {
       }
     </Components.TableRow>
   );
+}
+
+
+function getColumns (isHead) {
+  return [{
+    key: 'name',
+    variant: isHead ? 'head' : 'body',
+    label: 'Name',
+    ...(!isHead && {
+      accessor: booking => `${ booking.title } ${ booking.firstName } ${ booking.lastName }`,
+    }),
+  }, {
+    key: 'time',
+    variant: isHead ? 'head' : 'body',
+    label: 'Time',
+    align: 'right',
+    ...(isHead ? {
+      sortValue: 'time',
+    } : {
+      accessor: booking => booking.time,
+    }),
+
+  }, {
+    key: 'covers',
+    variant: isHead ? 'head' : 'body',
+    label: 'Covers',
+    align: 'right',
+    ...(isHead ? {
+      sortValue: 'covers',
+    } : {
+      accessor: booking => booking.partySize,
+    }),
+  }, {
+    key: 'seated',
+    variant: isHead ? 'head' : 'body',
+    label: 'Seated',
+    padding: 'checkbox',
+    align: 'center',
+    ...(isHead ? {
+      sortValue: 'seated',
+    } : {
+      accessor: booking => booking.seated && <Components.CheckIcon />,
+    }),
+  }, {
+    key: 'cancelled',
+    variant: isHead ? 'head' : 'body',
+    label: 'Cancelled',
+    align: 'center',
+    padding: 'checkbox',
+    ...(isHead ? {
+      sortValue: 'cancelled',
+    } : {
+      accessor: booking => booking.cancelled && <Components.ClearIcon />,
+    }),
+  }];
 }

@@ -22,7 +22,6 @@ const ColumnHeader = ({ sortValue, label, ...otherProps}) => {
 
   return (
     <TableCell
-      variant="head"
       onClick={onClick}
       {...otherProps}
     >
