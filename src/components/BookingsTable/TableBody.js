@@ -6,24 +6,24 @@ import { makeStyles } from '@material-ui/styles';
 
 
 
-const useBodyStyles = makeStyles(theme => ({
-  root: {
+const useStyles = makeStyles(theme => ({
+  root: ([shadow, dense]) => ({
     '&:before': {
       content: '""',
       position: 'absolute',
       width: '100vw',
       height: 10,
-      top: 48,
+      top: dense ? 28 : 48,
       left: '50%',
-      transform: shadow => `translate(-50%, ${shadow ? 0 : -10}px)`,
+      transform: `translate(-50%, ${shadow ? 0 : -10}px)`,
       boxShadow: theme.shadows[5],
       transition: 'transform 200ms ease-in-out',
     },
-  },
+  }),
 }));
 
-const TableBody = ({ shadow, ...props }) => {
-  const { root } = useBodyStyles(shadow);
+const TableBody = ({ shadow, isDense, ...props }) => {
+  const { root } = useStyles([shadow, isDense]);
   return (
     <MuiTableBody
       classes={{ root }}
@@ -32,7 +32,8 @@ const TableBody = ({ shadow, ...props }) => {
   );
 };
 TableBody.propTypes = {
-  shadow: PropTypes.bool.isRequired,
+  shadow: PropTypes.bool,
+  isDense: PropTypes.bool,
 };
 
 export default TableBody;

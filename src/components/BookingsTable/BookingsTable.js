@@ -1,9 +1,64 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 import * as Components from './Components';
 
+
+
+const getColumns = isHead => ([{
+  key: 'name',
+  variant: isHead ? 'head' : 'body',
+  label: 'Name',
+  ...(!isHead && {
+    accessor: booking => `${ booking.title } ${ booking.firstName } ${ booking.lastName }`,
+  }),
+}, {
+  key: 'time',
+  variant: isHead ? 'head' : 'body',
+  label: 'Time',
+  align: 'right',
+  ...(isHead ? {
+    sortValue: 'time',
+  } : {
+    accessor: booking => booking.time,
+  }),
+
+}, {
+  key: 'covers',
+  variant: isHead ? 'head' : 'body',
+  label: 'Covers',
+  align: 'right',
+  ...(isHead ? {
+    sortValue: 'time',
+  } : {
+    accessor: booking => booking.partySize,
+  }),
+}, {
+  key: 'seated',
+  variant: isHead ? 'head' : 'body',
+  label: 'Seated',
+  padding: 'checkbox',
+  align: 'center',
+  ...(isHead ? {
+    sortValue: 'seated',
+  } : {
+    accessor: booking => booking.seated && <Components.CheckIcon />,
+  }),
+}, {
+  key: 'cancelled',
+  variant: isHead ? 'head' : 'body',
+  label: 'Cancelled',
+  align: 'center',
+  padding: 'checkbox',
+  ...(isHead ? {
+    sortValue: 'cancelled',
+  } : {
+    accessor: booking => booking.cancelled && <Components.ClearIcon />,
+  }),
+}]);
 
 
 const BookingsTable = ({ bookings, selectedId, selectId }) => {
@@ -11,6 +66,9 @@ const BookingsTable = ({ bookings, selectedId, selectId }) => {
   const ref = useRef();
   const { sortProp, sortOrder } = useSelector(state => state?.ui);
   const [ shadows, setShadows ] = useState([false, false]);
+  const headerColumns = useMemo(() => getColumns(true), []);
+  const bodyColumns = useMemo(() => getColumns(false), []);
+  const isDense = useMediaQuery('(max-width: 680px)');
 
   useEffect(() => {
     if (ref.current) {
@@ -21,11 +79,10 @@ const BookingsTable = ({ bookings, selectedId, selectId }) => {
   const content = bookings.length ?
     bookings
       .sort(sortBookings(bookings, sortProp, sortOrder))
-      .map(booking => renderBooking(booking, selectedId, selectId))
+      .map(booking => renderBooking(booking, selectedId, selectId, bodyColumns))
     : (
       <Components.EmptyView />
     );
-
 
   return (
     <Components.TableContainer
@@ -33,17 +90,21 @@ const BookingsTable = ({ bookings, selectedId, selectId }) => {
       onScroll={e => setShadows(calcShadows(e.target))}
       shadow={shadows[1]}
     >
-      <Components.Table aria-label="Bookings Table" stickyHeader>
+      <Components.Table
+        stickyHeader
+        aria-label="Bookings Table"
+        size={isDense ? 'small' : 'medium'}
+      >
         <Components.TableHead>
           <Components.TableRow>
-            <Components.ColumnHeader label="Name" />
-            <Components.ColumnHeader sortValue="time" label="Time" />
-            <Components.ColumnHeader sortValue="partySize" label="Covers" />
-            <Components.ColumnHeader sortValue="seated" label="Seated" />
-            <Components.ColumnHeader sortValue="cancelled" label="Cancelled" />
+            {
+              headerColumns.map(({key, ...props}) => (
+                <Components.ColumnHeader key={key} {...props} />
+              ))
+            }
           </Components.TableRow>
         </Components.TableHead>
-        <Components.TableBody shadow={shadows[0]}>
+        <Components.TableBody shadow={shadows[0]} isDense={isDense}>
           {
             content
           }
@@ -96,7 +157,7 @@ function calcShadows (element) {
 }
 
 
-function renderBooking ( booking, selectedId, selectId) {
+function renderBooking (booking, selectedId, selectId, columns) {
   return (
     <Components.TableRow
       key={booking._id}
@@ -105,11 +166,15 @@ function renderBooking ( booking, selectedId, selectId) {
       isCancelled={booking.cancelled}
       onClick={() => selectId(booking._id)}
     >
-      <Components.TableCell>{ `${ booking.title } ${ booking.firstName } ${ booking.lastName }` }</Components.TableCell>
-      <Components.TableCell>{ booking.time }</Components.TableCell>
-      <Components.TableCell>{ booking.partySize }</Components.TableCell>
-      <Components.TableCell>{ booking.seated ? 'Y' : 'N' }</Components.TableCell>
-      <Components.TableCell>{ booking.cancelled ? 'Y' : 'N' }</Components.TableCell>
+      {
+        columns.map(({key, accessor, ...props}) => (
+          <Components.TableCell key={key} {...props}>
+            {
+              accessor(booking)
+            }
+          </Components.TableCell>
+        ))
+      }
     </Components.TableRow>
   );
 }

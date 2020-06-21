@@ -9,34 +9,29 @@ import { sortBy } from 'data/actions';
 
 
 
-const ColumnHeader = ({ sortValue, label }) => {
+const ColumnHeader = ({ sortValue, label, ...otherProps}) => {
 
   const { sortProp, sortOrder } = useSelector(state => state?.ui);
   const dispatch = useDispatch();
 
-  const isSortable = !!sortValue;
   const isActive = sortValue === sortProp;
   const direction = sortOrder > 0 ? 'asc' : 'desc';
-  const onClick = isSortable ?
+  const onClick = sortValue ?
     () => dispatch(sortBy(sortValue)) :
     undefined;
 
   return (
     <TableCell
+      variant="head"
       onClick={onClick}
-      sortDirection={isActive && direction}
+      {...otherProps}
     >
-      {
-        isSortable ? (
-          <TableSortLabel
-            active={ isActive }
-            direction={ direction }
-            hideSortIcon
-          >
-            { label }
-          </TableSortLabel>
-        ) : label
-      }
+      <TableSortLabel
+        active={ isActive }
+        direction={ direction }
+      >
+        { label }
+      </TableSortLabel>
     </TableCell>
   );
 };

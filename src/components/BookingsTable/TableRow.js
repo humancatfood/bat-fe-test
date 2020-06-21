@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import omit from 'lodash/omit';
 
 import MuiTableRow from '@material-ui/core/TableRow';
 import MuiTableCell from '@material-ui/core/TableCell';
@@ -7,14 +8,12 @@ import { styled } from '@material-ui/styles';
 
 
 
-function TableRow ({isSelected, isSeated, isCancelled, ...otherProps}) {
+function TableRow ({isSelected, ...otherProps}) {
   return (
     <MuiTableRow
       hover
       selected={isSelected}
-      // seated={ }
-      // cancelled={isCancelled}
-      {...otherProps}
+      {...omit(otherProps, 'isSeated', 'isCancelled')}
     />
   );
 }
@@ -26,10 +25,15 @@ TableRow.propTypes = {
 };
 
 
-const styles = ({theme}) => window.console.log('theme:', theme)|| ({
+const styles = ({theme, isCancelled}) => ({
   "&.Mui-selected": {
     backgroundColor: theme.palette.info.light,
   },
+
+  ...(isCancelled && {
+    textDecoration: 'line-through',
+  }),
+
 });
 
 export default styled(TableRow)(styles);
