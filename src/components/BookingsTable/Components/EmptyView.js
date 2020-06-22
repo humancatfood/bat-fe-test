@@ -17,9 +17,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 const EmptyView = () => {
-  const { root } = useStyles();
+  const classes = useStyles();
   return (
-    <Alert classes={{ root }} severity="info">
+    <Alert severity="info" classes={classes}>
       <AlertTitle>No Bookings</AlertTitle>
       There are no bookings for this day
     </Alert>
