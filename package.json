@@ -8,6 +8,7 @@
     "dev:client": "react-scripts start",
     "dev:server": "env-cmd -f .env.development cross-env NODE_ENV=development nodemon --inspect ./bin/www",
     "dev": "concurrently -n server,client -c 'yellow,magenta' npm:dev:server npm:dev:client",
+    "prebuild": "npm install --only=production",
     "build": "react-scripts build",
     "test": "cypress open",
     "eject": "react-scripts eject",
