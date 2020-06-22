@@ -23,13 +23,6 @@ const BookingsTable = ({ bookings, selectedId, selectId }) => {
     }
   }, [ setShadows ]);
 
-  const content = bookings.length ?
-    bookings
-      .sort(sortBookings(bookings, sortProp, sortOrder))
-      .map(booking => renderBooking(booking, selectedId, selectId, bodyColumns))
-    : (
-      <Components.EmptyView />
-    );
 
   return (
     <Components.TableContainer
@@ -53,10 +46,17 @@ const BookingsTable = ({ bookings, selectedId, selectId }) => {
         </Components.TableHead>
         <Components.TableBody shadow={shadows[0]} isDense={isDense}>
           {
-            content
+            bookings
+              .sort(sortBookings(bookings, sortProp, sortOrder))
+              .map(booking => renderBooking(booking, selectedId, selectId, bodyColumns))
           }
         </Components.TableBody>
       </Components.Table>
+      {
+        !bookings.length && (
+          <Components.EmptyView />
+        )
+      }
     </Components.TableContainer>
   );
 };
