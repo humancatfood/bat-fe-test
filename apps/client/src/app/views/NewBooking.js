@@ -2,9 +2,9 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
 
-import { useCreateBooking, useNewBooking, useSelectedBid } from 'data';
+import { useCreateBooking, useNewBooking, useSelectedBid } from '../data';
 
-import BookingFormDialog from 'components/BookingFormDialog';
+import BookingFormDialog from '../components/BookingFormDialog';
 
 
 

@@ -4,7 +4,7 @@ import isEqual from 'lodash/isEqual';
 
 import Divider from '@material-ui/core/Divider';
 
-import BookingForm from 'components/BookingForm';
+import BookingForm from '../../components/BookingForm';
 import * as Dialog from './Dialog';
 
 

@@ -5,7 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 
-import { sortBy } from 'data/actions';
+import { sortBy } from '../../../data/actions';
 
 
 

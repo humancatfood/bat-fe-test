@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { useDailyBookings, useNewBooking, useSelectedBid, useSelectedDate } from 'data';
+import { useDailyBookings, useNewBooking, useSelectedBid, useSelectedDate } from '../../data';
 
-import BookingsTable from 'components/BookingsTable';
+import BookingsTable from '../../components/BookingsTable';
 
-import BookingDetailView from 'views/BookingDetail';
-import NewBookingView from 'views/NewBooking';
+import BookingDetailView from '../../views/BookingDetail';
+import NewBookingView from '../../views/NewBooking';
 
 import Header from './Header';
 import Fab from './Fab';

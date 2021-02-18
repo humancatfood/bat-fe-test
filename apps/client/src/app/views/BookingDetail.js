@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useSelectedBid, useBookingById, useUpdateBooking } from 'data';
+import { useSelectedBid, useBookingById, useUpdateBooking } from '../data';
 
-import BookingFormDialog from 'components/BookingFormDialog';
-import Error from 'components/Error';
-import { useEffect } from 'react';
+import BookingFormDialog from '../components/BookingFormDialog';
+import Error from '../components/Error';
 
 
 

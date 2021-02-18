@@ -10,9 +10,9 @@ import EventIcon from '@material-ui/icons/Event';
 import ArrowLeftIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowRightIcon from '@material-ui/icons/ArrowForwardIos';
 
-import { useSelectedDate } from 'data';
+import { useSelectedDate } from '../../data';
 
-import DatePicker from 'components/DatePicker';
+import DatePicker from '../../components/DatePicker';
 
 
 
