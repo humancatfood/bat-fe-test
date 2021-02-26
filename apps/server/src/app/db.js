@@ -1,9 +1,10 @@
-const DataStore = require('nedb');
+import DataStore from 'nedb';
+
+import initialData from '../assets/bookings.json';
 
 
 
-module.exports = ( filename='.data/datafile', shouldAddFixtures ) => {
-
+export const createDB = (filename = '.data/datafile', shouldAddFixtures) => {
   const db = new DataStore({ filename, autoload: true });
 
   if (shouldAddFixtures) {
@@ -15,31 +16,27 @@ module.exports = ( filename='.data/datafile', shouldAddFixtures ) => {
   });
 
   return db;
-
 };
 
-
-function addFixtures (db) {
-
-  db.count({}, function (err, count) {
-    if(err) {
+function addFixtures(db) {
+  db.count({}, (err, count) => {
+    if (err) {
       global.console.error("There's a problem with the database: ", err);
     } else if (!count) {
 
-      const initialData = require('./../bookings.json').flatMap(({ date, bookings }) => bookings.map(booking => ({
+      const data = initialData.flatMap(({ date, bookings }) => bookings.map((booking) => ({
         ...booking,
         date,
         name: `${booking.title} ${booking.firstName} ${booking.lastName}`,
       })));
 
-      db.insert(initialData, (err, result) => {
+      db.insert(data, (err, result) => {
         if (err) {
           global.console.error("There's a problem with the database: ", err);
         } else if (result) {
-          global.console.info("Default bookings inserted in the database");
+          global.console.info('Default bookings inserted in the database');
         }
       });
     }
   });
-
 }

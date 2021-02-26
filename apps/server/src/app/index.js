@@ -1,27 +1,27 @@
-const { join } = require('path');
+import { join } from 'path';
 
-const express = require('express');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import { ApolloServer, PubSub } from 'apollo-server-express';
 
-const { GraphQLServer, PubSub } = require('graphql-yoga');
+import {createDB} from './db';
+import {resolvers} from './resolvers';
+import typeDefs from './schema.graphql';
+import { formatError } from './middleware';
 
-const createDB = require('./db');
-const resolvers = require('./resolvers');
-const { formatError } = require('./middleware');
-const typeDefs = require('./schema.graphql');
+import info from './info';
 
-const info = require('./info');
+import { version } from './../../../../package.json';
 
-const { version } = require('./../package.json');
 
 global.console.log('version: ', version);
 global.console.log('NODE_ENV:', process.env.NODE_ENV);
 
 
 
-const server = new GraphQLServer({
+const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: {
@@ -31,7 +31,9 @@ const server = new GraphQLServer({
 });
 
 
-const app = server.express;
+
+const app = express();
+server.applyMiddleware({ app });
 
 
 app.use(cors('http://localhost:3000'));
@@ -52,11 +54,15 @@ app.use('*', (request, response, next) => {
   }
 });
 
-
-module.exports.startServer = (options, onStart) => server.start({
+const defaultOptions = {
   endpoint: '/graphql',
   subscriptions: '/graphql',
   playground: '/graphql',
   formatError,
+  port: 3000,
+};
+
+export const startServer = ({onStart, ...options}={}) => app.listen({
+  ...defaultOptions,
   ...options,
 }, onStart);

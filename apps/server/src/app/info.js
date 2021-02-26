@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { version } = require('../package.json');
+const { version } = require('../../../../package.json');
 
 
 

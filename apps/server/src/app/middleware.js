@@ -1,6 +1,6 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
-const { ValidationError } = require('yup');
+import { ValidationError } from 'yup';
 
 
 
@@ -9,7 +9,8 @@ const formatValidationError = error => _.chain(error)
   .map(inner => _.pick(inner, ['path', 'message']))
   .value();
 
-module.exports.formatError = error => {
+
+export const formatError = error => {
 
   const { originalError } = error;
 

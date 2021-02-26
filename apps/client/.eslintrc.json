@@ -1,4 +1,9 @@
 {
-  "extends": ["plugin:@nrwl/nx/react", "../../.eslintrc.json"],
-  "ignorePatterns": ["!**/*"]
+  "env": {
+    "browser": true
+  },
+  "extends": [
+    "../../.eslintrc.json",
+    "plugin:react/recommended"
+  ]
 }

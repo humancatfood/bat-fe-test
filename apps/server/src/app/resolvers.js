@@ -1,4 +1,4 @@
-const yup = require('yup');
+import * as yup from 'yup';
 
 
 
@@ -22,7 +22,8 @@ const bookingInputSchema = yup.object().shape({
 const idInputSchema = yup.string().required();
 
 
-module.exports = {
+
+export const resolvers = {
   Query: {
     bookings: (parent, { date }, { db }) => new Promise((resolve, reject) => {
 
