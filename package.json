@@ -42,7 +42,7 @@
     "graphql": "^14.6.0",
     "graphql-yoga": "^1.18.3",
     "graphql.macro": "^1.4.2",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "moment": "^2.27.0",
     "morgan": "~1.9.1",
     "nedb": "^1.8.0",
